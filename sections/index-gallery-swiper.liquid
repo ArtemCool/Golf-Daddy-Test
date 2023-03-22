@@ -1,0 +1,96 @@
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+<div class="gradient-green-bg py-16">
+  <div class="grid gap-4 items-center justify-center mb-9">
+    <span class="text-center font-grace uppercase text-lg sm:text-2xl">{{ section.settings.gallery-upper-span }}</span>
+    <h1 class="text-center font-scania text-xl sm:text-3xl lg:text-4xl">{{ section.settings.gallery-heading }}</h1>
+    <div class="flex justify-center items-center">
+      {% render 'icon-small-custom-underline' %}
+    </div>
+  </div>
+
+  <div class="relative">
+    <!-- Slider main container -->
+    <div class="gallery-swiper px-4 hidden-class mx-auto">
+      <!-- Additional required wrapper -->
+      <div class="swiper-wrapper">
+
+        <!-- Slides -->
+        {% for block in section.blocks %}
+          <div class="swiper-slide">
+            <div class="flex items-center justify-center rounded-3xl">
+              {{ block.settings.gallery-image | image_url: width: 284, height: 408 | image_tag: loading: 'lazy' }}
+            </div>
+          </div>
+        {% endfor %}
+
+      </div>
+    </div>
+
+    <!-- If we need navigation buttons -->
+    <div class="swiper-button-prev p-4 rounded-full bg-white w-auto h-auto border-2 border-black">
+      {% render 'icon-swiper-arrow' %}
+    </div>
+    <div class="swiper-button-next p-4 rounded-full bg-white w-auto h-auto border-2 border-black">
+      {% render 'icon-swiper-arrow-right' %}
+    </div>
+  </div>
+</div>
+
+<script>
+  const gallerySwiper = new Swiper('.gallery-swiper', {
+    spaceBetween: 16,
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev'
+    },
+    breakpoints: {
+      1024: {
+        slidesPerView: 4
+      },
+      768: {
+        slidesPerView: 3
+      },
+      640: {
+        slidesPerView: 2
+      }
+    }
+  });
+</script>
+
+{% schema %}
+  {
+    "name": "Gallery Swiper",
+    "settings": [
+      {
+        "type": "text",
+        "id": "gallery-upper-span",
+        "default": "Gallery",
+        "label": "Gallery Upper Span"
+      }, {
+        "type": "text",
+        "id": "gallery-heading",
+        "label": "Gallery Heading",
+        "default": "Golf Daddy"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Gallery Image",
+        "type": "gallery-image",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "gallery-image",
+            "label": "Gallery Image"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Gallery Swiper"
+      }
+    ]
+  }
+{% endschema %}

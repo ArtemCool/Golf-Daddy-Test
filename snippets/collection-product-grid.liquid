@@ -1,10 +1,26 @@
 <div class="collection__product-grid">
-	{% paginate collection.products by pagination %}
-		<div class="grid {{ grid_class }} grid-cols-2 md:gap-10 gap-5">
-			{% for product in collection.products limit: limit %}
-				{% render 'collection-product-card', product: product, image_class: image_class %}
-			{% endfor %}
-		</div>
-		{% render 'pagination', paginate: paginate %}
-	{% endpaginate %}
+  {% paginate collection.products by pagination %}
+    <div class="grid {{ grid_class }} gap-6 md:gap-3 dif-backs">
+      {% for product in collection.products limit: limit %}
+        {% if forloop.index == 1 %}
+          <div class="bg-[#BADE2F] rounded-xl">
+            {% render 'collection-product-card', product: product, image_class: image_class %}
+          </div>
+        {% endif %}
+
+        {% if forloop.index == 2 %}
+          <div class="bg-[#6CD565] rounded-xl">
+            {% render 'collection-product-card', product: product, image_class: image_class %}
+          </div>
+        {% endif %}
+
+        {% if forloop.index == 3 %}
+          <div class="bg-[#53E28D] rounded-xl">
+            {% render 'collection-product-card', product: product, image_class: image_class %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    {% render 'pagination', paginate: paginate %}
+  {% endpaginate %}
 </div>

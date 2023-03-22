@@ -34,9 +34,29 @@
         "price",
         "checkout_buttons"
       ]
+    },
+    "product-master-section": {
+      "type": "product-master-section"
+    },
+    "product-ad-section": {
+      "type": "product-ad-section"
+    }, 
+    "product-box-container": {
+      "type": "product-box-container"
+    },
+    "product-adv-table": {
+      "type": "product-adv-table"
+    }, 
+    "product-faq-section": {
+      "type": "product-faq-section"
     }
   },
   "order": [
-    "product-description"
+    "product-description",
+    "product-master-section",
+    "product-ad-section",
+    "product-box-container",
+    "product-adv-table",
+    "product-faq-section"
   ]
 }

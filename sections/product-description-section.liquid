@@ -1,0 +1,79 @@
+<div class="container py-16">
+  <div class="grid gap-6 lg:gap-0 lg:grid-cols-3 items-center relative bg-white">
+    <div class="flex flex-col gap-3 z-30 relative">
+      <div class="xl:absolute -top-14 -left-20 w-min mx-auto xl:mx-0 pb-4 sm:pb-0">
+        {% render 'icon-black-animation' %}
+      </div>
+      <h2 class="font-scania text-[26px] sm:text-3xl lg:text-4xl xl:text-[46px] w-[110%]">{{ section.settings.product-description-section-heading }}</h2>
+      {% render 'icon-small-custom-underline' %}
+      <p class="font-helvetica text-sm w-[80%]">{{ section.settings.product-description-section-description }}</p>
+    </div>
+    <div class="mx-auto lg:mx-0 lg:relative lg:-left-[10%] rounded-[20px]">
+      {{ section.settings.product_description_image | image_url: width: 400 | image_tag: loading: 'lazy' }}
+    </div>
+    <ul class="flex flex-col justify-around h-full pt-11 pb-2 lg:py-0 lg:pb-36 lg:pt-20 gap-4 relative">
+      {% for block in section.blocks %}
+        <li class="flex gap-6 items-center">
+          <div class="min-w-2 w-2 min-h-2 h-2 bg-custom_green rounded-full"></div>
+          <p class="text-md xl:text-[20px] font-helvetica">{{ block.settings.description_list_item_text }}</p>
+        </li>
+      {% endfor %}
+      <div class="absolute sm:-top-20 -top-16 -right-11 sm:right-0 lg:-right-0 lg:top-[70%] lg:-left-[25%]">
+        <span class="uppercase font-grace text-[70px] lg:text-[80px] xl:text-[96px] gradient-text whitespace-nowrap">{{ section.settings.absolute_possitioned_span }}</span>
+      </div>
+    </ul>
+  </div>
+</div>
+
+<style>
+  .gradient-text {
+    color: transparent;
+    background-color: #53E28D;
+    background-image: linear-gradient(90deg, #E7FE5F 0%, #53E28D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Product Descr Section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "product-description-section-heading",
+        "default": "Making It Easy To Get Better At Golf",
+        "label": "Product Description Section Heading"
+      }, {
+        "type": "text",
+        "id": "product-description-section-description",
+        "default": "The Divot Daddy was our first product. We noticed that one of the most common mistakes among beginner and intermediate golfers was hooking their shots. We made it our first mission to make that mistake easy to fix, and thats how the Divot Daddy came about.",
+        "label": "Product Description Section Description"
+      }, {
+        "type": "image_picker",
+        "id": "product_description_image",
+        "label": "Product Description Section Image"
+      }, {
+        "type": "text",
+        "id": "absolute_possitioned_span",
+        "default": "golf Daddy",
+        "label": "Absolute Positioned Span"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Description List Item",
+        "type": "description-list-item",
+        "limit": 3,
+        "settings": [
+          {
+            "type": "text",
+            "id": "description_list_item_text",
+            "label": "Description List Item Text",
+            "default": "60 day get better guarrantee, or your money back."
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

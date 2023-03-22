@@ -1,13 +1,42 @@
 {
   "sections": {
-    "featured-collection": {
-      "type": "featured-collection",
-      "settings": {
-        "featured_collection": "frontpage"
-      }
+    "shop-now-index": {
+      "type": "shop-now-index"
+    },
+    "product-description-section": {
+      "type": "product-description-section"
+    },
+    "index-best-products-section": {
+      "type": "index-best-products-section"
+    },
+    "index-product-adcantages": {
+      "type": "index-product-adcantages"
+    },
+    "index-review-swiper": {
+      "type": "index-review-swiper"
+    }, 
+    "index-social-links-left-text-section": {
+      "type": "index-social-links-left-text-section"
+    },
+    "index-social-links-right-text-section": {
+      "type": "index-social-links-right-text-section"
+    },
+    "index-gallery-swiper": {
+      "type": "index-gallery-swiper"
+    },
+    "index-tiktok-section": {
+      "type": "index-tiktok-section"
     }
   },
   "order": [
-    "featured-collection"
+    "shop-now-index", 
+    "product-description-section",
+    "index-best-products-section",
+    "index-product-adcantages",
+    "index-review-swiper",
+    "index-social-links-left-text-section",
+    "index-social-links-right-text-section",
+    "index-gallery-swiper",
+    "index-tiktok-section"
   ]
 }

@@ -1,0 +1,135 @@
+<div class="container py-16">
+  <div class="grid gap-9">
+    <div class="grid gap-6">
+      <div class="flex gap-2 items-center justify-center">
+        <h3 class="font-scania text-xl sm:text-3xl lg:text-4xl">{{ section.settings.section-heading-firs-part }}</h3>
+        <h3 class="font-scania text-xl sm:text-3xl lg:text-4xl gradient-text">{{ section.settings.section-heading-second-part }}</h3>
+      </div>
+      <div class="flex items-center justify-center">
+        {% render 'icon-small-custom-underline' %}
+      </div>
+    </div>
+    <div class="flex flex-col md:flex-row justify-between gap-4 md:gap-2">
+      {% for block in section.blocks %}
+        <div class="grid gap-6 items-center justify-center">
+          <div class="mx-auto xl:min-w-[230px] xl:max-w-[230px] max-w-[140px] min-w-[140px] xl:min-h-[230px] xl:max-h-[230px] max-h-[140px] min-h-[140px] rounded-full border border-lite_gray_text flex items-center justify-center p-11">
+            {{ block.settings.box-contains-image | image_url: width: 80 | image_tag: loading: 'lazy' }}
+          </div>
+          <h4 class="text-helvetica text-sm sm:text-base font-helvetica font-bold text-center">{{ block.settings.box-contains-heading }}</h4>
+          <p class="text-sm font-helvetica text-center text-secondary_gray">{{ block.settings.box-contains-text }}</p>
+        </div>
+        {% unless forloop.index == 4 %}
+          <div class="flex items-center justify-center md:pb-20">
+            {% render 'icon-what-in-box-plus' %}
+          </div>
+        {% endunless %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+  .gradient-green-bg {
+    background: linear-gradient(90deg, rgba(231, 254, 95, 0.4) 0%, rgba(83, 226, 141, 0.4) 100%);
+  }
+  .bg-blue-custom {
+    background: #1A6AC9;
+  }
+  .hidden-class {
+    width: 890px !important;
+  }
+  .swiper-button-next {
+    color: #000000 !important;
+    right: 10% !important;
+  }
+  .swiper-button-prev {
+    color: #000000 !important;
+    left: 10% !important;
+  }
+  .swiper-button-next::after,
+  .swiper-button-prev::after {
+    display: none;
+  }
+  .swiper-button-disabled {
+    opacity: 1 !important;
+    background: transparent !important;
+    duration: 300;
+  }
+  .swiper-pagination {
+    bottom: -30px !important;
+  }
+  .swiper-pagination-bullet {
+    background: #000000 !important;
+    opacity: 0.2 !important;
+    margin: 0 6px !important;
+    width: 8px;
+    transition: width 0.3s ease !important;
+  }
+  .swiper-pagination-bullet-active {
+    width: 30px;
+    opacity: 1 !important;
+    border-radius: 5px !important;
+  }
+  @media(max-width: 1350px) {
+    .swiper-button-next {
+      right: 10px !important;
+    }
+    .swiper-button-prev {
+      left: 10px !important;
+    }
+  }
+  @media(max-width: 1024px) {
+    .swiper-button-next {
+      display: none;
+    }
+    .swiper-button-prev {
+      display: none;
+    }
+    .hidden-class {
+      width: 100% !important;
+    }
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "What In The Box",
+    "settings": [
+      {
+        "type": "text",
+        "id": "section-heading-firs-part",
+        "default": "Whats in",
+        "label": "Firs Part Of Section Heading"
+      }, {
+        "type": "text",
+        "id": "section-heading-second-part",
+        "default": "the box?",
+        "label": "Second Part Of Section Heading"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Box Cantains",
+        "limit": 4,
+        "type": "box-contains",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "box-contains-image",
+            "label": "Box Contains Image"
+          }, {
+            "type": "text",
+            "id": "box-contains-heading",
+            "default": "The Divot Daddy",
+            "label": "Box Contains Heading"
+          }, {
+            "type": "text",
+            "id": "box-contains-text",
+            "default": "Lorem ipsum dolor sit amet,",
+            "label": "Box Cantains Text"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

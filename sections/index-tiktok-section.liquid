@@ -1,0 +1,77 @@
+<div class="container pt-16">
+  <div class="grid gap-9 md:gap-2 md:grid-cols-2 items-end justify-center">
+    <div class="grid gap-6 mb-16">
+      <div class="flex items-center justify-center">
+        {% render 'icon-tiktok-logo' %}
+      </div>
+      <h2 class="font-scania text-xl sm:text-3xl lg:text-4xl text-center">{{ section.settings.tiktok-section-heading }}</h2>
+      <div class="flex items-center justify-center">
+        {% render 'icon-small-custom-underline' %}
+      </div>
+      <div class="grid grid-cols-3">
+        <div class="grid gap-2 items-ceter justify-center border-r border-gray-400">
+          <span class="text-md font-md font-helvetica text-center">{{ section.settings.number-of-posts }}</span>
+          <span class="text-sm font-helvetica text-center">Posts</span>
+        </div>
+        <div class="grid gap-2 items-ceter justify-center border-r border-gray-400">
+          <span class="text-md font-md font-helvetica text-center">{{ section.settings.number-of-subscribers }}</span>
+          <span class="text-sm font-helvetica text-center">Subscribers</span>
+        </div>
+        <div class="grid gap-2 items-ceter justify-center">
+          <span class="text-md font-md font-helvetica text-center">{{ section.settings.number-of-likes }}</span>
+          <span class="text-sm font-helvetica text-center">Likes</span>
+        </div>
+      </div>
+      <a class="border-class text-center gradient-bg w-min whitespace-nowrap py-4 px-12 duration-300 font-bold font-helvetica mx-auto" href="#">{{ section.settings.tiktok-section-button-text }}</a>
+    </div>
+    <div class="">
+      {{ section.settings.tiktok-section-image | image_url: width: 1000 | image_tag: loading: 'lazy' }}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "TikTok Section",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "tiktok-section-image",
+        "label": "TikTok Section Image"
+      },
+      {
+        "type": "text",
+        "id": "tiktok-section-heading",
+        "default": "Join us on Tiktok",
+        "label": "TikTok Section Heading"
+      },
+      {
+        "type": "text",
+        "id": "tiktok-section-button-text",
+        "default": "Golf.daddy",
+        "label": "TikTok Section Button Text"
+      },
+      {
+        "type": "text",
+        "id": "number-of-posts",
+        "default": "500+",
+        "label": "TikTok Number Of Posts"
+      }, {
+        "type": "text",
+        "id": "number-of-subscribers",
+        "default": "68,000+",
+        "label": "TikTok Number Of Subscribers"
+      }, {
+        "type": "text",
+        "id": "number-of-likes",
+        "default": "3,200,000+",
+        "label": "TikTok Number Of Likes"
+      }
+    ],
+    "presets": [
+      {
+        "name": "TikTok Section"
+      }
+    ]
+  }
+{% endschema %}

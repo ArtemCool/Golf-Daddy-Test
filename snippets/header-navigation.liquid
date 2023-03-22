@@ -1,106 +1,96 @@
-<!-- Desktop Menu -->
-<nav class="header__menu md:flex justify-center hidden">
-	<ul
-		class="header__menu-nav flex gap-8"
-	>
-		{% for link in section.settings.menu.links %}
-			{% if link.links != blank %}
-				<li class="nav__item group relative" x-data="{ submenuOpen: false }">
-						<p
-							@click="submenuOpen = !submenuOpen"
-							:class="submenuOpen && 'text-accent fill-accent'"
-							class="cursor-pointer flex gap-2 fill-textColor group-hover:text-accent group-hover:fill-accent"
-						>
-							{{ link.title }} {% render 'icon-dropdown', class: 'w-4' %}
-						</p>
-						<ul
-							x-show="submenuOpen"
-							x-cloak
-							x-transition
-							@click.outside="submenuOpen = false"
-							class="nav__item-submenu absolute bg-white border divide-y rounded min-w-[250px] p-3 mt-1"
-						>
-							{% for sublink in linklists[link.handle].links %}
-								<li class="hover:text-accent py-2">
-									<a href="{{ sublink.url }}">
-										{{ sublink.title }}
-									</a>
-								</li>
-							{% endfor %}
-						</ul>
-				</li>
-			{% else %}
-				<li class="nav__item">
-					<a class="hover:text-accent" href="{{ link.url }}"> {{ link.title }}</a>
-				</li>
-			{% endif %}
-		{% endfor %}
-	</ul>
-</nav>
+<div class="rotate-180 hidden"></div>
+<script src="{{ 'header-navigation.js' | asset_url }}" defer="defer"></script>
 
 <!-- Mobile Menu -->
-<nav class="header__menu-mobile -order-1 md:hidden block" x-data="{ showBurgerMenu: false }">
-	<button
-		:class="showBurgerMenu ? '' : ''"
-		@click="showBurgerMenu = !showBurgerMenu; document.body.classList.toggle('overflow-hidden')"
-		class="header__menu-burger w-6 flex flex-col gap-1"
-		type="button"
-	>
-		<span class="w-full h-[2px] bg-textColor"></span>
-		<span class="w-full h-[2px] bg-textColor"></span>
-		<span class="w-full h-[2px] bg-textColor"></span>
-	</button>
+<nav class="header__menu-mobile -order-1 lg:hidden block" x-data="{ showBurgerMenu: false }">
+  <button
+    :class="showBurgerMenu ? '' : ''"
+    @click="showBurgerMenu = !showBurgerMenu; document.body.classList.toggle('overflow-hidden')"
+    class="header__menu-burger flex flex-col gap-1"
+    type="button">
+    <!-- MOBILE BURGER ICON -->
+    <div class="flex items-start items-center lg:hidden">
+      {% render 'icon-burger-menu' %}
+    </div>
+  </button>
 
-	<ul
-		:class="showBurgerMenu ? 'left-0' : '-left-[100vw]'"
-		x-cloak
-		class="header__menu-nav flex gap-[20px] transition-all top-0 flex-col absolute p-[20px] bg-accent w-screen h-screen text-white overflow-auto z-20"
-	>
-		<div class="flex justify-between">
-			{% render 'search-input', class: 'w-10' %}
-			<button
-				@click="showBurgerMenu = false; document.body.classList.remove('overflow-hidden')"
-			>
-				{% render 'icon-close', class: 'max-w-[30px] fill-white' %}
-			</button>
-		</div>
-		{% for link in section.settings.menu.links %}
-			{% if link.links != blank %}
-				<li class="nav__item group relative" x-data="{ submenuOpen: false }">
-						<p
-							@click="submenuOpen = !submenuOpen"
-							class="flex gap-2 fill-white"
-						>
-							{{ link.title }} {% render 'icon-dropdown', class: 'w-4' %}
-						</p>
-						<ul
-							x-show="submenuOpen"
-							x-cloak
-							x-transition
-							@click.outside="submenuOpen = false"
-							class="nav__item-submenu"
-						>
-							{% for sublink in linklists[link.handle].links %}
-								<li>
-									<a href="{{ sublink.url }}">
-										{{ sublink.title }}
-									</a>
-								</li>
-							{% endfor %}
-						</ul>
-				</li>
-			{% else %}
-				<li class="nav__item">
-					<a href="{{ link.url }}"> {{ link.title }}</a>
-				</li>
-			{% endif %}
-		{% endfor %}
-		{%- if shop.customer_accounts_enabled -%}
-			<a href="{{ routes.account_url }}" 
-				title="account link"
-			>
-				Account
-			</a>
-		{%- endif -%}
-	</ul>
+
+  <!-- BURGER OVERLAY -->
+  <div
+    x-cloak
+    x-show="showBurgerMenu"
+    @click="showBurgerMenu = false; document.body.classList.remove('overflow-hidden')"
+    class="overlay transition-all z-30 w-screen h-screen top-0 left-0 fixed bg-black opacity-30"></div>
+
+
+  <ul
+    :class="showBurgerMenu ? 'left-0' : '-left-[100vw]'"
+    x-cloak
+    class="header__menu-nav flex gap-[20px] transition-all top-0 flex-col absolute p-[20px] bg-white w-screen text-white overflow-auto z-40">
+
+    <!-- BURGER HEADER -->
+    <div class="flex justify-between items-center">
+      <button @click="showBurgerMenu = false; document.body.classList.remove('overflow-hidden')">
+        {% render 'icon-close' %}
+      </button>
+      <div class="">
+        <div class="header__logo flex justify-center">
+          {% if section.settings.logo != blank %}
+            <a href="{{ routes.root_url }}">
+              {{ section.settings.logo | image_url: width: 98 | image_tag: loading: 'lazy' }}
+            </a>
+          {% else %}
+            <a href="{{ routes.root_url }}">
+              {{ shop.name }}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+      <div @cart-count-updated.window="cart_count = $event.detail">
+        <a
+          title="Cart button"
+          class="flex items-center gap-2 group"
+          href="{{ routes.cart_url }}">
+          {% render 'icon-cart-black', class: 'w-10' %}
+        </a>
+      </div>
+    </div>
+
+
+    <!-- BURGER LINKS -->
+    <div class="grid gap-6">
+      {% for link in section.settings.menu.links %}
+        {% if link.links != blank %}
+          <li class="nav__item dropdown-item group relative" x-data="{ submenuOpen: false }">
+            <div
+              @click="submenuOpen = !submenuOpen"
+              id="dropdownMenu-{{ forloop.index }}"
+              class="flex items-center justify-between md:gap-3 md:justify-start fill-black text-black font-helvetica font-medium">
+              <span>{{ link.title }}</span>
+              <div class="duration-300" id="dropdownArrow-{{ forloop.index }}">{% render 'icon-dropdown', class: 'w-3' %}</div>
+            </div>
+            <ul
+              x-show="submenuOpen"
+              x-cloak
+              x-transition
+              @click.outside="submenuOpen = false"
+              class="nav__item-submenu">
+              {% for sublink in linklists[link.handle].links %}
+                <li class="my-3">
+                  <a href="{{ sublink.url }}" class="text-secondary_gray font-helvetica font-norman hover:text-black duration-300">
+                    {{ sublink.title }}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          </li>
+        {% else %}
+          <li class="nav__item">
+            <a href="{{ link.url }}" class="text-black font-helvetica font-medium hover:text-gray-400 duration-300">
+              {{ link.title }}</a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </ul>
 </nav>

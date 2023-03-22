@@ -1,159 +1,338 @@
-<div class="container">
-	<div class="grid md:grid-cols-2 md:gap-10 grid-cols-1 gap-5">
-		<div>
-			{% if product.media.size > 1 %}
-				{% render 'product-media-slider' %}
-				{% else %}
-					{% for media in product.media %}
-						{% render 'product-media', media: media %}
-					{% endfor %}
-			{% endif %}
-		</div>
-		<div>
-			{% for block in section.blocks %}
-				{% case block.type %}
+<div class="container pb-16 pt-24 sm:pt-32 lg:pt-40">
+  <div class="grid md:grid-cols-2 md:gap-10 grid-cols-1 gap-2">
+    <div>
+      {% if product.media.size > 1 %}
+        {% render 'product-media-slider' %}
+      {% else %}
+        {% for media in product.media %}
+          {% render 'product-media', media: media %}
+        {% endfor %}
+      {% endif %}
+    </div>
+    <div class="p-4 xl:pr-16 flex flex-col justify-start gap-6">
+      {% for block in section.blocks %}
+        {% case block.type %}
 
-					{%- when '@app' -%}
-						{% render block %}
+          {%- when '@app' -%}
+          {% render block %}
 
-					{% when "vendor" %}
-						<div class="my-3">
-							<span class="text-xs">
-								{{ product.vendor }}
-							</span>
-						</div>
+          {% when "vendor" %}
+          <div class="">
+            <span class="text-xs">
+              {{ product.vendor }}
+            </span>
+          </div>
 
-					{% when 'title' %}
-						<div class="my-3">
-							<h1 class="text-3xl">{{ product.title }}</h1>
-						</div>
-						
-					{% when 'description' %}
-						<p class="my-3">
-							{{ product.description }}
-						</p>
+          {% when 'title' %}
+          <h1 class="font-scania text-xl sm:text-3xl lg:text-4xl">{{ product.title }}</h1>
 
-					{% when 'variant_selector' %}
-						<div class="my-3">
-							{% unless product.has_only_default_variant %}
-								{% render 'product-variant-selector', product: product %}
-							{% endunless %}
-						</div>
-					
-					{% when 'quantity' %}
-						<div class="my-3">
-							<p class="font-bold mb-1">Quantity</p>
-							{% render 'product-quantity' %}
-						</div>
+          {% when 'description' %}
+          <p class="font-helvetica font-bold">
+            {{ product.description }}
+          </p>
 
-					{% when 'price' %}
-						<div class="my-3 font-bold text-4xl text-accent" id="price-{{ section.id }}">
-							{{ product.selected_or_first_available_variant.price | money }}
-							{% if  product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price -%}
-								<s class="text-red-700"> {{ product.selected_or_first_available_variant.compare_at_price | money }}</s>
-							{% endif %}
-						</div>
+          {% when 'large_description' %}
+          <div class="grid gap-3">
+            <span class="text-sm sm:text-md font-normal font-helvetica">{{ block.settings.large_description_heading }}</span>
+            <div class="flex gap-3 items-center">
+              <div class="min-w-[6px] max-w-[6px] min-h-[6px] max-h-[6px] rounded-full bg-black"></div>
+              <p class="text-sm sm:text-md font-normal font-helvetica">{{ block.settings.large_description_first_line }}</p>
+            </div>
+            <div class="flex gap-3 items-center">
+              <div class="min-w-[6px] max-w-[6px] min-h-[6px] max-h-[6px] rounded-full bg-black"></div>
+              <p class="text-sm sm:text-md font-normal font-helvetica">{{ block.settings.large_description_second_line }}</p>
+            </div>
+            <div class="flex gap-3 items-center">
+              <div class="min-w-[6px] max-w-[6px] min-h-[6px] max-h-[6px] rounded-full bg-black"></div>
+              <p class="text-sm sm:text-md font-normal font-helvetica">{{ block.settings.large_description_third_line }}</p>
+            </div>
+            <div class="flex gap-3 items-center">
+              <div class="min-w-[6px] max-w-[6px] min-h-[6px] max-h-[6px] rounded-full bg-black"></div>
+              <p class="text-sm sm:text-md font-normal font-helvetica">{{ block.settings.large_description_fours_line }}</p>
+            </div>
+          </div>
 
-					{% when 'checkout_buttons' %}
-						<div x-data="{ 
-								quantity: 1
-              }"
-							@quantity-changed.window="quantity = $event.detail.quantity"
-						>
-							{% assign product_form_installment_id = 'product-form-installment-' | append: section.id %}
-							{% form 'product', product, id: product_form_installment_id , novalidate: 'novalidate', x-ref: 'product_form' %}
-								<input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-								<input type="hidden" name="quantity" x-model="quantity" />
-								<button 
-									type="submit"
-									name="add"
-									class="product-section__cart-button button my-3"
-									@click.prevent="Functions.addToCart($refs.product_form)"
-									{% unless product.selected_or_first_available_variant.available %}
-										disabled
-									{% endunless %} >
-									{% unless product.selected_or_first_available_variant.available %}
-										{{ block.settings.sold_out }}
-										{% else %}
-											{{ block.settings.add_to_cart }}
-									{% endunless %}
-								</button>
+          {% when 'variant_selector' %}
+          <div class="">
+            {% unless product.has_only_default_variant %}
+              {% render 'product-variant-selector', product: product %}
+            {% endunless %}
+          </div>
 
-								{% if block.settings.dynamic_buttons %}
-									{{ form | payment_button }}
-								{% endif %}
+          {% when 'quantity' %}
+          <div class="">
+            <p class="font-bold mb-1">Quantity</p>
+            {% render 'product-quantity' %}
+          </div>
 
-							{% endform %}
-						</div>
+          {% when 'price' %}
+          <div class="font-bold font-helvetica text-3xl text-black flex gap-3 items-center" id="price-{{ section.id }}">
+            {{ product.selected_or_first_available_variant.price | money }}
+            {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price -%}
+              <s class="text-gray-400 font-normal text-xl">
+                {{ product.selected_or_first_available_variant.compare_at_price | money }}</s>
+              <div class="p-1 bg-black flex items-center gap-1 rounded-md">
+                <p class="text-white font-helvetica text-sm whitespace-nowrap">{{ block.settings.percent_of_sale }}</p>
+              </div>
+            {% endif %}
+          </div>
 
-				{% endcase %}
-			{% endfor %}
-		</div>
-	</div>
+          {% when 'checkout_buttons' %}
+          <div x-data="{ 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                								quantity: 1
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              }" @quantity-changed.window="quantity = $event.detail.quantity">
+            {% assign product_form_installment_id = 'product-form-installment-' | append: section.id %}
+            {% form 'product', product, id: product_form_installment_id, novalidate: 'novalidate', x-ref: 'product_form' %}
+              <input
+                type="hidden"
+                name="id"
+                value="{{ product.selected_or_first_available_variant.id }}">
+              <input
+                type="hidden"
+                name="quantity"
+                x-model="quantity" />
+              <button
+                type="submit"
+                name="add"
+                class="product-section__cart-button button border-class text-center gradient-bg whitespace-nowrap py-4 px-12 duration-300 font-bold font-helvetica mx-auto text-black w-full"
+                @click.prevent="Functions.addToCart($refs.product_form)"
+                {% unless product.selected_or_first_available_variant.available %}
+                disabled
+                {% endunless %}>
+                {% unless product.selected_or_first_available_variant.available %}
+                  {{ block.settings.sold_out }}
+                {% else %}
+                  {{ block.settings.add_to_cart }}
+                {% endunless %}
+              </button>
+
+              {% if block.settings.dynamic_buttons %}
+                {{ form | payment_button }}
+              {% endif %}
+
+            {% endform %}
+          </div>
+
+          {% when 'number_of_clients' %}
+          <div class="flex gap-2 items-center mx-auto">
+            <div class="w-[64px]">
+              {{ block.settings.image_of_customers | image_url: width: 100 | image_tag: loading: 'lazy' }}
+            </div>
+            <p class="text-sm sm:text-md font-helvetica">More than
+              <span class="font-bold font-helvetica">{{ block.settings.number_of_customer }}</span>
+              satisfied GolfDaddy's already.</p>
+          </div>
+
+          {% when 'payment_methods' %}
+          <div class="flex justify-center gap-3">
+            {% for payment in shop.enabled_payment_types %}
+              {{ payment | payment_type_svg_tag }}
+            {% endfor %}
+          </div>
+
+          {% when 'product_advantages' %}
+          <div class="grid sm:grid-cols-3 grid-cols-1 gap-4 lg:gap-9">
+            <div class="grid gap-3">
+              <div class="w-[48px] rounded-full mx-auto">
+                {{ block.settings.first_advantage_image | image_url: width: 100 | image_tag: loading: 'lazy' }}
+              </div>
+              <h4 class="font-helvetica font-bold text-sm md:text-md text-center">{{ block.settings.first_advantage_heading }}</h4>
+              <p class="font-helvetica text-sm md:text-md text-center text-gray-500">{{ block.settings.first_advantage_text }}</p>
+            </div>
+            <div class="grid gap-3">
+              <div class="w-[48px] rounded-full mx-auto">
+                {{ block.settings.second_advantage_image | image_url: width: 100 | image_tag: loading: 'lazy' }}
+              </div>
+              <h4 class="font-helvetica font-bold text-sm md:text-md text-center">{{ block.settings.second_advantage_heading }}</h4>
+              <p class="font-helvetica text-sm md:text-md text-center text-gray-500">{{ block.settings.second_advantage_text }}</p>
+            </div>
+            <div class="grid gap-3">
+              <div class="w-[48px] rounded-full mx-auto">
+                {{ block.settings.third_advantage_image | image_url: width: 100 | image_tag: loading: 'lazy' }}
+              </div>
+              <h4 class="font-helvetica font-bold text-sm md:text-md text-center">{{ block.settings.third_advantage_heading }}</h4>
+              <p class="font-helvetica text-sm lg:text-md text-center text-gray-500">{{ block.settings.third_advantage_text }}</p>
+            </div>
+          </div>
+
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
 </div>
 
+
 {% schema %}
-{
-  "name": "Product",
-  "blocks": [
-    {
-      "type": "@app"
-    },
-    {
-      "type": "vendor",
-      "name": "Vendor",
-      "limit": 1
-    },
-    {
-      "type": "title",
-      "name": "Title",
-      "limit": 1
-    },
-    {
-      "type": "description",
-      "name": "Description",
-      "limit": 1
-    },
-    {
-      "type": "variant_selector",
-      "name": "Variant Selector",
-      "limit": 1
-    },
-    {
-      "type": "quantity",
-      "name": "Quantity",
-      "limit": 1
-    },
-    {
-      "type": "price",
-      "name": "Price",
-      "limit": 1
-    },
-    {
-      "type": "checkout_buttons",
-      "name": "Checkout Buttons",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "text",
-          "id": "add_to_cart",
-          "label": "Add to cart button text",
-          "default": "Add to Cart"
-        },
-        {
-          "type": "text",
-          "id": "sold_out",
-          "label": "Sold Out button text",
-          "default": "Sold Out"
-        },
-        {
-          "type": "checkbox",
-          "id": "dynamic_buttons",
-          "label": "Allow Dynamic Buttons",
-          "default": false
-        }
-      ]
-    }
-  ]
-}
+  {
+    "name": "Product",
+    "blocks": [
+      {
+        "type": "@app"
+      },
+      {
+        "type": "vendor",
+        "name": "Vendor",
+        "limit": 1
+      },
+      {
+        "type": "title",
+        "name": "Title",
+        "limit": 1
+      },
+      {
+        "type": "description",
+        "name": "Description",
+        "limit": 1
+      }, {
+        "type": "variant_selector",
+        "name": "Variant Selector",
+        "limit": 1
+      }, {
+        "type": "quantity",
+        "name": "Quantity",
+        "limit": 1
+      }, {
+        "type": "price",
+        "name": "Price",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "text",
+            "id": "percent_of_sale",
+            "default": "🔥 Save 10%",
+            "label": "Percent Of Sale"
+          }
+        ]
+      }, {
+        "type": "checkout_buttons",
+        "name": "Checkout Buttons",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "text",
+            "id": "add_to_cart",
+            "label": "Add to cart button text",
+            "default": "Add to Cart"
+          }, {
+            "type": "text",
+            "id": "sold_out",
+            "label": "Sold Out button text",
+            "default": "Sold Out"
+          }, {
+            "type": "checkbox",
+            "id": "dynamic_buttons",
+            "label": "Allow Dynamic Buttons",
+            "default": false
+          }
+        ]
+      }, {
+        "type": "large_description",
+        "name": "Large Description",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "text",
+            "id": "large_description_heading",
+            "default": "The DivotDaddy is a thin, carpet-like mat that gives you a detailed analysis of how your club head makes contact with the ball.",
+            "label": "Large Descriptiom Heading"
+          },
+          {
+            "type": "text",
+            "id": "large_description_first_line",
+            "default": "Improve your swing consistency by analyzing your divot.",
+            "label": "Large Description First"
+          },
+          {
+            "type": "text",
+            "id": "large_description_second_line",
+            "default": "Get instant feedback on your ball contact.",
+            "label": "Large Description Second"
+          },
+          {
+            "type": "text",
+            "id": "large_description_third_line",
+            "default": "Practice in the comfort of your own home or backyard - with or without a ball!",
+            "label": "Large Description Third"
+          }, {
+            "type": "text",
+            "id": "large_description_fours_line",
+            "default": "Don't waste your money on range balls without real time divot feedback.",
+            "label": "Large Description Fours"
+          }
+        ]
+      }, {
+        "type": "number_of_clients",
+        "name": "Number Of Clients",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image_of_customers",
+            "label": "Image Of Customers"
+          }, {
+            "type": "text",
+            "id": "number_of_customer",
+            "default": "8,932",
+            "label": "Number Of Customers"
+          }
+        ]
+      }, {
+        "type": "payment_methods",
+        "limit": 1,
+        "name": "Payment Methods"
+      }, {
+        "type": "product_advantages",
+        "limit": 1,
+        "name": "Product Advanteges",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "first_advantage_image",
+            "label": "First Advantage Image"
+          },
+          {
+            "type": "image_picker",
+            "id": "second_advantage_image",
+            "label": "Second Advantage Image"
+          },
+          {
+            "type": "image_picker",
+            "id": "third_advantage_image",
+            "label": "Third Advantage Image"
+          },
+          {
+            "type": "text",
+            "id": "first_advantage_heading",
+            "default": "Best new product",
+            "label": "First Advantage Heading"
+          }, {
+            "type": "text",
+            "id": "second_advantage_heading",
+            "default": "Free Shipping!",
+            "label": "Second Advantage Heading"
+          }, {
+            "type": "text",
+            "id": "third_advantage_heading",
+            "default": "Master Your Swiming Path",
+            "label": "Third Advantage Heading"
+          }, {
+            "type": "text",
+            "id": "first_advantage_text",
+            "default": "Lorem ipsum dolor sit amet,",
+            "label": "First Advantage Text"
+          }, {
+            "type": "text",
+            "id": "second_advantage_text",
+            "default": "Lorem ipsum dolor sit amet,",
+            "label": "Second Advantage Text"
+          }, {
+            "type": "text",
+            "id": "third_advantage_text",
+            "default": "Lorem ipsum dolor sit amet,",
+            "label": "Second Advantage Text"
+          }
+        ]
+      }
+    ]
+  }
 {% endschema %}

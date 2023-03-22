@@ -1,0 +1,83 @@
+<div class="container py-16">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:gap-16 gap-6 items-center justify-center">
+    <div class="lg:px-9 pl-9 relative">
+      <div class="rounded-3xl object-cover">
+        {{ section.settings.product_ad_main_image | image_url: width: 400 | image_tag: loading: 'lazy' }}
+      </div>
+      <div class="absolute top-5 -left-5 border-2 border-white rounded-3xl">
+        {{ section.settings.product_ad_small_image | image_url: width: 100 | image_tag: loading: 'lazy' }}
+      </div>
+      <div class="absolute -bottom-16 right-4">
+        <span class="uppercase font-grace text-[70px] lg:text-[80px] xl:text-[96px] gradient-text whitespace-nowrap">{{ section.settings.absolute_span }}</span>
+      </div>
+    </div>
+    <div class="grid gap-6 row-start-1 sm:col-start-2">
+      <h3 class="font-scania text-xl sm:text-3xl lg:text-4xl">{{ section.settings.product_ad_heading }}</h3>
+      {% render 'icon-small-custom-underline' %}
+      {% for block in section.blocks %}
+        <div class="flex gap-4 items-center">
+          <div class="rounded-full max-h-[44px] max-w-[44px]">
+            {{ block.settings.product_ad_block_image | image_url: width: 100 | image_tag: loading: 'lazy' }}
+          </div>
+          <p class="text-sm md:text-base font-helvetica">{{ block.settings.product_ad_block_text }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+  .gradient-text {
+    color: transparent;
+    background-color: #53E28D;
+    background-image: linear-gradient(90deg, #E7FE5F 0%, #53E28D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Product Advantages",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "product_ad_main_image",
+        "label": "Product Advantages Main Image"
+      }, {
+        "type": "image_picker",
+        "id": "product_ad_small_image",
+        "label": "Product Advantage Small Image"
+      }, {
+        "type": "text",
+        "id": "product_ad_heading",
+        "default": "STOP WASTING TIME & MONEY TO PRACTICE",
+        "label": "Product Advantage Heading"
+      }, {
+        "type": "text",
+        "id": "absolute_span",
+        "label": "Custom Span",
+        "default": "golf daddy"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Advantage List",
+        "limit": 3,
+        "type": "advantage_list",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "product_ad_block_image",
+            "label": "Advantage Image"
+          }, {
+            "type": "text",
+            "id": "product_ad_block_text",
+            "default": "Setup the DivotDaddy indoors or outdoors in seconds.",
+            "label": "Advantage Text"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

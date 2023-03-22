@@ -1,0 +1,14 @@
+{
+    "sections": {
+      "our-story": {
+        "type": "our-story"
+      },
+      "our-story-how-it-started": {
+        "type": "our-story-how-it-started"
+      }
+    },
+    "order": [
+      "our-story",
+      "our-story-how-it-started"
+    ]
+  }

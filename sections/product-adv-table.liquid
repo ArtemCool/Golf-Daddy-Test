@@ -1,0 +1,120 @@
+<div class="container py-16 md:px-16">
+  <div class="grid gap-6">
+    <h3 class="font-scania text-xl sm:text-3xl lg:text-4xl text-center">{{ section.settings.adv_table_heading }}</h3>
+    <div class="flex items-center justify-center">
+      {% render 'icon-small-custom-underline' %}
+    </div>
+    <table class="max-w-[660px] mx-auto">
+      <tr class="grid grid-cols-3">
+        <td></td>
+        <td class="flex justify-center items-center bg-black py-3 rounded-t-lg">
+          <span class="font-helvetica text-sm sm:text-base text-white text-center">{{ section.settings.first-prod-name }}</span>
+        </td>
+        <td class="flex justify-center items-center">
+          <span class="font-helvetica text-sm sm:text-base text-center">{{ section.settings.second-prod-name }}</span>
+        </td>
+      </tr>
+      <tr class="grid grid-cols-3 items-center border-b border-lite_gray_text">
+        <td class="pl-3 py-2 text-sm font-helvetica">{{ section.settings.first_row_name }}</td>
+        <td class="flex justify-center items-center bg-black h-full py-3">
+          <span class="font-helvetica text-sm sm:text-base text-white">{{ section.settings.first-prod-price }}</span>
+        </td>
+        <td class="flex justify-center items-center">
+          <span class="font-helvetica text-sm sm:text-base">{{ section.settings.second-prod-price }}</span>
+        </td>
+      </tr>
+      {% for block in section.blocks %}
+        <tr class="grid grid-cols-3 items-center border-b border-lite_gray_text">
+          <td class="pl-3 py-2 text-sm font-helvetica">{{ block.settings.row-name }}</td>
+          <td class="flex items-center justify-center bg-black h-full py-3">
+            <div class="w-[24px] h-[24px] gradient-arrow-bg rounded-full flex items-center justify-center">
+              {% render 'icon-product-arrow-table' %}
+            </div>
+          </td>
+          <td class="flex items-center justify-center">
+            <div class="w-[24px] h-[24px] bg-black rounded-full flex items-center justify-center">
+              {% render 'icon-product-table-x' %}
+            </div>
+          </td>
+        </tr>
+        {% if forloop.last %}
+          <tr class="grid grid-cols-3">
+            <td class="pl-3 py-2 text-sm font-helvetica">{{ block.settings.row-name }}</td>
+            <td class="flex items-center justify-center bg-black h-full rounded-b-lg pt-3 pb-7">
+              <div class="w-[24px] h-[24px] gradient-arrow-bg rounded-full flex items-center justify-center">
+                {% render 'icon-product-arrow-table' %}
+              </div>
+            </td>
+            <td class="flex pt-3 justify-center">
+              <div class="w-[24px] h-[24px] bg-black rounded-full flex items-center justify-center">
+                {% render 'icon-product-table-x' %}
+              </div>
+            </td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+    </table>
+  </div>
+</div>
+
+<style>
+  .gradient-arrow-bg {
+    background: linear-gradient(90deg, #E7FE5F 0%, #53E28D 100%);
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Product Advantages Table",
+    "settings": [
+      {
+        "type": "text",
+        "id": "adv_table_heading",
+        "default": "Main advantages",
+        "label": "Product Advantages Table Heading"
+      },
+      {
+        "type": "text",
+        "id": "first-prod-name",
+        "default": "The Divot Daddy",
+        "label": "First Product Name"
+      },
+      {
+        "type": "text",
+        "id": "second-prod-name",
+        "default": "Golf lessons",
+        "label": "Second Product Name"
+      },
+      {
+        "type": "text",
+        "id": "first-prod-price",
+        "default": "$39.99",
+        "label": "First Product Price"
+      }, {
+        "type": "text",
+        "id": "second-prod-price",
+        "default": "$$$$",
+        "label": "Second Product Price"
+      }, {
+        "type": "text",
+        "id": "first_row_name",
+        "default": "Price",
+        "label": "First Row Name"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Table Row",
+        "type": "table_row",
+        "settings": [
+          {
+            "type": "text",
+            "id": "row-name",
+            "default": "Repeatable practice",
+            "label": "Row Name"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

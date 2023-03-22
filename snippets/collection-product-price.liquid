@@ -7,12 +7,15 @@
       {% endif %}
       to {{ product.price_max | money }}
       {% if product.compare_at_price > product.price -%}
-        <s class="text-red-700"> {{ product.compare_at_price_max | money }}</s>
+        <s class="text-red-700">
+          {{ product.compare_at_price_max | money }}</s>
       {% endif %}
     {% elsif product.compare_at_price > product.price %}
-      <span class="sr-only">{{ 'products.product.price.sale_price' | t }}</span>
-      {{ product.price | money }}
-      <s class="text-red-700">{{ product.compare_at_price | money }}</s>
+      <div class="flex gap-4 justify-center items-center">
+        <span class="sr-only">{{ 'products.product.price.sale_price' | t }}</span>
+        {{ product.price | money }}
+        <s class="text-white text-sm md:text-xl opacity-50">{{ product.compare_at_price | money }}</s>
+      </div>
     {% elsif product.price_varies %}
       From {{ product.price_min | money }}
       {% if product.compare_at_price > product.price %}
@@ -20,7 +23,8 @@
       {% endif %}
       to {{ product.price_max | money }}
       {% if product.compare_at_price > product.price -%}
-        <s class="text-red-700"> {{ product.compare_at_price | money }}</s>
+        <s class="text-red-700">
+          {{ product.compare_at_price | money }}</s>
       {% endif %}
     {% else %}
       <span class="sr-only">

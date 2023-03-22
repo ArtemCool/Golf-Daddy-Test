@@ -1,111 +1,237 @@
-<div class="container max-w-[600px]">
-  <div class="text-center mb-5">
-    <h1 class="text-3xl font-bold my-1">
-      {{ section.settings.title }}
-    </h1>
-    {{ section.settings.text }}
+<div class="container pb-16 pt-32">
+  <div class="grid gap-4 pb-6">
+    <span class="font-grace text-2xl sm:text-3xl uppercase text-center">{{ section.settings.contact_upper_span }}</span>
+    <h3 class="font-scania text-xl sm:text-3xl lg:text-4xl text-center">{{ section.settings.contact_heading }}</h3>
+    <div class="flex justify-center items-center">
+      {% render 'icon-small-custom-underline' %}
+    </div>
   </div>
-  {% form 'contact' %}
-    {% if form.errors %}
-			<div class="flex flex-row items-center justify-center w-full my-3">
-				{% for error in form.errors %}
-					<div class="text-red-500">
-						{% render 'icon-failed' %}
-					</div>
-					<p class="text-red-500 text-sm font-bold ml-2">
-						{{ form.errors.translated_fields[error] | capitalize }} - {{ form.errors.messages[error] }}
-					</p>
-				{% endfor %}
-			</div>
-    {% elsif form.posted_successfully? %}
-			<div class="flex flex-row items-center justify-center w-full gap-2 my-5">
-				<div class="text-green-500">
-					{% render 'icon-success' %}
-				</div>
-				<p class="text-green-500 font-bold text-center">
-					Message is sent successfully
-				</p>
-			</div>
-    {% endif %}
-    <div class="grid grid-cols-2 gap-3">
-      <label
-        for="contact_name"
-        class="sr-only"
-        >First Name</label
-      >
-      <input
-        type="text"
-        name="contact[first_name]"
-        id="contact_name"
-        class="input sm:col-span-2"
-        placeholder="First Name*"
-				required
-      >
-      <label
-        for="contact_name"
-        class="sr-only"
-        >Last Name</label
-      >
-      <input
-        type="text"
-        name="contact[last_name]"
-        id="contact_name"
-        class="input sm:col-span-2"
-        placeholder="Last Name*"
-				required
-      >
-      <label
-        for="contact_email"
-        class="sr-only"
-        >Email</label
-      >
-      <input
-        type="email"
-        name="contact[email]"
-        id="contact_email"
-        class="input col-span-2"
-        placeholder="Email*"
-				required
-      >
-      <label
-        for="contact_message"
-        class="sr-only"
-        >Message</label
-      >
-      <textarea
-        name="contact[body]"
-        id="contact_message"
-        class="input resize-none h-20 py-2 col-span-2"
-        placeholder="Message"
-      ></textarea>
+  <div class="grid">
+    <div class="grid md:grid-cols-3 gap-6 md:gap-0 lg:px-32 gradient_green_border py-8">
+      <div class="flex flex-col items-center pb-6 md:pb-0 md:px-6 xl:px-11 gap-4 border-b md:border-b-0 md:border-r border-lite_gray_text">
+        <div class="flex gap-2">
+          {% render 'icon-contact-location' %}
+          <p class="font-helvetica text-sm md:text-base">{{ section.settings.address_heading }}</p>
+        </div>
+        <span class="text-center font-helvetica text-sm md:text-base">{{ section.settings.address_text }}</span>
+      </div>
+      <div class="flex flex-col items-center pb-6 md:pb-0 md:px-6 xl:px-11 gap-4 border-b md:border-b-0 md:border-r border-lite_gray_text">
+        <div class="flex gap-2">
+          {% render 'icon-contact-mail' %}
+          <p class="font-helvetica text-sm md:text-base">{{ section.settings.mail_heading }}</p>
+        </div>
+        <span class="text-center font-helvetica text-sm md:text-base">{{ section.settings.mail_text }}</span>
+      </div>
+      <div class="flex flex-col items-center pt-4 md:pt-0 md:px-6 xl:px-11 gap-4">
+        <div class="flex gap-2">
+          {% render 'icon-contact-follow-us' %}
+          <p class="font-helvetica text-sm md:text-base">{{ section.settings.follow_heading }}</p>
+        </div>
+        <div class="flex gap-2 justify-between items-center">
+          <a href="#" class="group">{% render 'icon-contact-social-fb' %}</a>
+          <a href="#" class="group">{% render 'icon-contact-social-inst' %}</a>
+          <a href="#" class="group">{% render 'icon-contact-social-tt' %}</a>
+          <a href="#" class="group">{% render 'icon-contact-social-dc' %}</a>
+        </div>
+      </div>
     </div>
-    <div class="text-center mt-3">
-      <button type="submit" class="button">Submit</button>
+    <div class="grid sm:grid-cols-2 gap-6 sm:gap-0 items-start justify-start py-8">
+      <div class="px-4 lg:px-16 sm:border-r border-lite_gray_text grid gap-6">
+        <div class="flex flex-col gap-4 justify-center items-center">
+          <h4 class="text-lg md:text-xl font-helvetica font-medium">{{ section.settings.form_heading }}</h4>
+          <p class="text-sm md:text-base font-helvetica text-center text-secondary_gray">{{ section.settings.form_text }}</p>
+        </div>
+        {% form 'contact' %}
+          {% if form.errors %}
+            <div class="flex flex-row items-center justify-center w-full my-3">
+              {% for error in form.errors %}
+                <div class="text-red-500">
+                  {% render 'icon-failed' %}
+                </div>
+                <p class="text-red-500 font-helvetica text-sm font-bold ml-2">
+                  {{ form.errors.translated_fields[error] | capitalize }} - {{ form.errors.messages[error] }}
+                </p>
+              {% endfor %}
+            </div>
+          {% elsif form.posted_successfully? %}
+            <div class="flex flex-row items-center justify-center w-full gap-2 my-5">
+              <div class="text-green-500 font-helvetica">
+                {% render 'icon-success' %}
+              </div>
+              <p class="text-green-500 font-helvetica font-bold text-center">
+                Message is sent successfully
+              </p>
+            </div>
+          {% endif %}
+          <div class="grid gap-4">
+            <label for="contact_name" class="sr-only">First Name</label>
+            <input
+              type="text"
+              name="contact[first_name]"
+              id="contact_name"
+              class="input rounded-3xl outline-none px-4 font-helvetica"
+              placeholder="Name"
+              required>
+            <label for="contact_name" class="sr-only">Last Name</label>
+            <input
+              type="tel"
+              name="contact[last_name]"
+              id="contact_name"
+              class="input rounded-3xl outline-none px-4 font-helvetica"
+              placeholder="Phone"
+              required>
+            <label for="contact_email" class="sr-only">Email</label>
+            <input
+              type="email"
+              name="contact[email]"
+              id="contact_email"
+              class="input rounded-3xl outline-none px-4 font-helvetica"
+              placeholder="Email"
+              required>
+            <label for="contact_message" class="sr-only">Message</label>
+            <textarea
+              name="contact[body]"
+              id="contact_message"
+              class="input resize-none h-20 py-2 rounded-3xl outline-none px-4 font-helvetica"
+              placeholder="Message"></textarea>
+          </div>
+          <div class="text-center mt-4">
+            <button type="submit" class="button border-class text-center gradient-bg w-min whitespace-nowrap py-4 px-12 duration-300 font-bold font-helvetica mx-auto md:mx-0 text-black font-helvetica">Send</button>
+          </div>
+        {% endform %}
+      </div>
+      <div class="px-4 lg:px-16 grid gap-6">
+        <div class="flex flex-col gap-4 justify-center items-center">
+          <h4 class="text-lg md:text-xl font-helvetica font-medium">{{ section.settings.question_heading }}</h4>
+          <p class="text-sm md:text-base font-helvetica text-center text-secondary_gray">{{ section.settings.question_text }}</p>
+        </div>
+        <div class="grid gap-3">
+          {% for block in section.blocks %}
+            <div class="py-2 px-4 w-full mx-auto ">
+              <div class="grid gap-3" x-data="{ showFAQContact: false }">
+                <div class="flex items-center gap-2 group cursor-pointer" @click="showFAQContact = !showFAQContact">
+                  <span class="font-helvetica text-sm sm:text-base text-black group-hover:text-custom_green duration-300">-</span>
+                  <h4 class="font-helvetica text-sm sm:text-base text-black group-hover:text-custom_green duration-300">{{ block.settings.contact_faq_heading }}</h4>
+                </div>
+                <p
+                  x-cloak
+                  x-show="showFAQContact"
+                  x-transition
+                  class="text-sm sm:text-base font-helvetica text-secondary_gray">{{ block.settings.contact_faq_text }}</p>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
     </div>
-  {% endform %}
+  </div>
 </div>
 
+<style>
+  .gradient_green_border {
+    border-bottom: 1px solid transparent;
+    border-image: linear-gradient(90deg, #E7FE5F 0%, #53E28D 100%);
+    border-image-slice: 1;
+  }
+</style>
+
 {% schema %}
-{
-  "name": "Contact Form",
-  "settings": [
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Title",
-      "default": "Contact Us"
-    },
-    {
-      "type": "richtext",
-      "id": "text",
-      "label": "Text",
-      "default": "<p>Feel Free to Contact Us!</p>"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Contact Form"
-    }
-  ]
-}
+  {
+    "name": "Contact Form",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "Contact Us"
+      },
+      {
+        "type": "richtext",
+        "id": "text",
+        "label": "Text",
+        "default": "<p>Feel Free to Contact Us!</p>"
+      },
+      {
+        "type": "text",
+        "id": "contact_upper_span",
+        "default": "KEEP IN TOUCH",
+        "label": "Upper Span"
+      },
+      {
+        "type": "text",
+        "id": "contact_heading",
+        "default": "Contact Us",
+        "label": "Heading"
+      }, {
+        "type": "text",
+        "id": "address_heading",
+        "default": "Our Address",
+        "label": "Address Heading"
+      }, {
+        "type": "text",
+        "id": "address_text",
+        "default": "160 City Road, London, EC1V 2NX - Derealized LTD.",
+        "label": "Address Text"
+      }, {
+        "type": "text",
+        "id": "mail_heading",
+        "default": "Write To Us",
+        "label": "Mail Heading"
+      }, {
+        "type": "text",
+        "default": "help@shopgolfdaddy.com",
+        "id": "mail_text",
+        "label": "Mail Text"
+      }, {
+        "type": "text",
+        "id": "follow_heading",
+        "default": "Follow Us",
+        "label": "Follow Us Heading"
+      }, {
+        "type": "text",
+        "id": "form_heading",
+        "default": "Have a question?",
+        "label": "Form Heading"
+      }, {
+        "type": "text",
+        "id": "form_text",
+        "default": "Fill out the form below and we'll get back to you as soon as possible!",
+        "label": "Form Text"
+      }, {
+        "type": "text",
+        "id": "question_heading",
+        "default": "Got questions?",
+        "label": "FAQ Heading"
+      }, {
+        "type": "text",
+        "id": "question_text",
+        "default": "If the FAQ on this page doesn't answer your question, submit a ticket via the form below or email us at",
+        "label": "FAQ Text"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Contact Form"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "FAQ Item",
+        "type": "faq_item",
+        "settings": [
+          {
+            "type": "text",
+            "id": "contact_faq_heading",
+            "default": "How long does it take to process an order?",
+            "label": "FAQ Heading"
+          }, {
+            "type": "text",
+            "id": "contact_faq_text",
+            "default": "Once an order is shipped out, tracking information is automatically sent via email to our customers. Please check your junk / spam inbox if you're unsure, however, if you have not received one within our typical timeframe, feel free to reach out via the form below.",
+            "label": "FAQ Text"
+          }
+        ]
+      }
+    ]
+  }
 {% endschema %}

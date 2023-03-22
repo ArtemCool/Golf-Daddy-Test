@@ -1,0 +1,79 @@
+<div class="container py-16">
+  <div class="grid md:grid-cols-2 gap-16 md:gap-6 pt-11 md:pt-0">
+    <div class="grid gap-6">
+      <span class="font-grace text-2xl uppercase">{{ section.settings.social-upper-span }}</span>
+      <h2 class="font-scania text-xl sm:text-3xl lg:text-4xl">{{ section.settings.social-heading }}</h2>
+      {% render 'icon-small-custom-underline' %}
+      <p class="font-helvetica text-sm sm:text-md">{{ section.settings.social-paragraph }}</p>
+      <a class="border-class text-center gradient-bg w-min whitespace-nowrap py-4 px-12 duration-300 font-bold font-helvetica mx-0" href="#">{{ section.settings.social-links-text }}</a>
+    </div>
+    <div class="relative w-full h-full flex items-center justify-center row-start-1 md:col-start-2">
+      <span class="z-10 absolute left-0 -bottom-20 md:right-0 md:-bottom-6 uppercase font-grace text-[70px] lg:text-[80px] xl:text-[96px] gradient-text whitespace-nowrap">{{ section.settings.social-links-gradient-span }}</span>
+      <div class="z-20 rounded-3xl">
+        {{ section.settings.social-left-main-image | image_url: width: 300 | image_tag: loading: 'lazy' }}
+      </div>
+      <div class="rounded-3xl border-2 border-white z-30 absolute -top-11 left-4 sm:left-24 md:top-8 lg:top-0 md:left-0 lg:left-14">
+        {{ section.settings.social-left-first-image | image_url: width: 120 | image_tag: loading: 'lazy' }}
+      </div>
+      <div class="rounded-3xl border-2 border-white z-30 absolute -right-4 sm:right-20 sm:top-46 md:top-46 lg:top-32 md:-right-2 lg:right-9 xl:right-16">
+        {{ section.settings.social-left-second-image | image_url: width: 140 | image_tag: loading: 'lazy' }}
+      </div>
+      <div class="rounded-3xl border-2 border-white z-30 absolute left-0 sm:left-24 -bottom-11 md:left-2 md:bottom-6 lg:-bottom-9 lg:left-24 xl:left-20">
+        {{ section.settings.social-left-third-image | image_url: width: 140 | image_tag: loading: 'lazy' }}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Social Link Left Text",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social-upper-span",
+        "default": "Our Story",
+        "label": "Upper Span"
+      },
+      {
+        "type": "text",
+        "id": "social-heading",
+        "default": "Started by Golfers who were tired of Golf being exclusive",
+        "label": "Social Links Left Text Heading"
+      },
+      {
+        "type": "text",
+        "id": "social-paragraph",
+        "default": "It started in our college dorm room after a historic terrible round of golf. We couldn’t justify paying for the range or lessons anymore as they were not that effective, but we believed that there was still a better way for golfers to improve. <br><br>That evening we got scrappy and began pondering how anybody could turn small spaces in their homes, into golf training facilities",
+        "label": "Social Links Left Text Paragraph"
+      },
+      {
+        "type": "text",
+        "id": "social-links-text",
+        "default": "Our Story",
+        "label": "Social Link Text"
+      }, {
+        "type": "text",
+        "id": "social-links-gradient-span",
+        "default": "golf Daddy",
+        "label": "Gradient Span"
+      }, {
+        "type": "image_picker",
+        "id": "social-left-main-image",
+        "label": "Social Left Text Main Image"
+      }, {
+        "type": "image_picker",
+        "id": "social-left-first-image",
+        "label": "Social Left Text First Image"
+      }, {
+        "type": "image_picker",
+        "id": "social-left-second-image",
+        "label": "Secial Left Text Second Image"
+      }, {
+        "type": "image_picker",
+        "id": "social-left-third-image",
+        "label": "Social Left Text Third Image"
+      }
+    ]
+  }
+{% endschema %}

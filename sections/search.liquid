@@ -1,38 +1,41 @@
-<div class="container mx-auto">
+<div class="container mx-auto pb-16 pt-32">
   {% paginate search.results by 8 %}
-    <h1 class="text-3xl font-bold my-4 text-center">Search Results</h1>
+    <div class="grid gap-4 pb-6">
+      <h1 class="font-scania text-xl sm:text-3xl lg:text-4xl text-center">{{ section.settings.search_title }}</h1>
+      <div class="flex justify-center items-center">
+        {% render 'icon-small-custom-underline' %}
+      </div>
+    </div>
     <form
       action="{{ routes.search_url }}"
       method="GET"
-      class="flex align-center justify-center mt-3"
-    >
+      class="grid md:flex gap-4 md:gap-2 justify-center w-full max-w-[900px] mx-auto pb-2">
       <input
         type="search"
         name="q"
         id="Search"
         value="{{ search.terms | escape }}"
-        class="input rounded-r-none border-r-0 max-w-[250px]"
-      >
-      <button type="submit" class="button rounded-l-none">Subscribe</button>
+        class="input min-w-[335px] rounded-3xl outline-none font-helvetica"
+        placeholder="{{ section.settings.search_placeholder }}">
+      <button type="submit" class="button border-class text-center gradient-bg w-min whitespace-nowrap py-2 px-12 h-min duration-300 font-bold font-helvetica mx-auto md:mx-0 text-black font-helvetica">{{ section.settings.search_button_text }}</button>
     </form>
     {% if search.performed %}
       {% if search.results.size > 0 %}
-        <p class="text-center my-10">
-          {{ search.results.size }} results for the search term
-          <b>{{ search.terms | escape }}</b>
+        <p class="font-helvetica text-sm text-secondary_gray max-w-[900px] mx-auto pb-10 border-b border-lite_gray_text">
+          By request found: {{ search.results.size }}
         </p>
-        <div class="grid md:grid-cols-4 grid-cols-2 gap-4">
+        <div class="grid">
           {% for item in search.results %}
-            {% render 'collection-product-card',
-              product: item,
-              image_class: 'w-full md:h-[250px] h-[150px]'
-            %}
+            {% render 'search-product-card'
+             , product: item,
+             image_class: 'w-full min-h-[110px] max-h-[110px] bg-green_custom min-w-[100px] max-w-[100px] rounded-xl p-2' %}
           {% endfor %}
         </div>
       {% else %}
-        <div class="text-center my-4">
+        <div class="text-center my-6 font-helvetica">
           <p>
-            No results found for the search term: <b>{{ search.terms | escape }}</b>.
+            No results found for the search term:
+            <b>{{ search.terms | escape }}</b>.
             Try to use a different keyword
           </p>
         </div>
@@ -42,3 +45,27 @@
     {% render 'pagination', paginate: paginate %}
   {% endpaginate %}
 </div>
+
+{% schema %}
+  {
+    "name": "Search",
+    "settings": [
+      {
+        "type": "text",
+        "id": "search_title",
+        "default": "Search results",
+        "label": "Search Title"
+      }, {
+        "type": "text",
+        "id": "search_placeholder",
+        "default": "Type Here...",
+        "label": "Search Input Placeholder"
+      }, {
+        "type": "text",
+        "id": "search_button_text",
+        "default": "Search",
+        "label": "Search Button Text"
+      }
+    ]
+  }
+{% endschema %}

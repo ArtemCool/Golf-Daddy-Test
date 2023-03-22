@@ -1,0 +1,220 @@
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+<div class="gradient-green-bg py-16">
+  <div class="container">
+
+    <div class="grid gap-4 sm:gap-6 mb-9">
+      <h2 class="text-center font-grace uppercase text-lg sm:text-2xl">{{ section.settings.rewiew-section-header }}</h2>
+      <div class="grid gap-2">
+        <h1 class="text-center font-scania text-xl sm:text-3xl lg:text-4xl">{{ section.settings.rewiew-header-big }}</h1>
+        <div class="flex justify-center items-center">
+          {% render 'icon-small-custom-underline' %}
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="relative">
+    <!-- Slider main container -->
+    <div class="swiper px-4 hidden-class">
+      <!-- Additional required wrapper -->
+      <div class="swiper-wrapper">
+
+        <!-- Slides -->
+        {% for block in section.blocks %}
+          <div class="swiper-slide">
+            <div class="grid lg:flex bg-white rounded-3xl">
+
+              <div class="row-start-2 lg:w-2/3 px-3 sm:px-12 py-4 grid gap-3 sm:gap-6">
+
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-6">
+                    <div class="rounded-full w-[64px] sm:w-[80px] relative">
+                      {{ block.settings.swiper-author-image | image_url: width: 200 | image_tag: loading: 'lazy' }}
+                      <div class="px-2 py-1 bg-blue-custom rounded-full absolute bottom-0 right-0">{{ block.settings.swiper-social-icon | image_url: width: 8 | image_tag: loading: 'lazy' }}</div>
+                    </div>
+                    <h3 class="font-helvetica">{{ block.settings.swiper-author-name }}</h3>
+                  </div>
+                  <div class=" flex gap-2">
+                    {% render 'icon-review-star' %}
+                    {% render 'icon-review-star' %}
+                    {% render 'icon-review-star' %}
+                    {% render 'icon-review-star' %}
+                    {% render 'icon-review-star' %}
+                  </div>
+                </div>
+
+                <h2 class="font-helvetica text-lg sm:text-xl font-medium">{{ block.settings.swiper-review-heading }}</h2>
+
+                <p class="font-helvetica text-sm sm:text-md">{{ block.settings.swiper-review-text }}</p>
+
+              </div>
+
+
+
+              <div class="mx-auto row-start-1 pt-2 lg:pt-0 lg:w-1/3 h-full object-cover rounded-3xl lg:rounded-r-3xl">
+                {{ block.settings.swiper-author-image-big | image_url: width: 300 | image_tag: loading: 'lazy' }}
+              </div>
+
+            </div>
+          </div>
+        {% endfor %}
+
+      </div>
+    </div>
+
+
+    <!-- If we need pagination -->
+    <div class="swiper-pagination"></div>
+
+    <!-- If we need navigation buttons -->
+    <div class="swiper-button-prev p-4 rounded-full bg-white w-auto h-auto border-2 border-black">
+      {% render 'icon-swiper-arrow' %}
+    </div>
+    <div class="swiper-button-next p-4 rounded-full bg-white w-auto h-auto border-2 border-black">
+      {% render 'icon-swiper-arrow-right' %}
+    </div>
+
+
+  </div>
+</div>
+
+<script>
+  const rewievSwiper = new Swiper('.swiper', {
+    spaceBetween: 100,
+    pagination: {
+      el: '.swiper-pagination'
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev'
+    },
+
+// And if we need scrollbar
+    scrollbar: {
+      el: '.swiper-scrollbar'
+    }
+  });
+</script>
+
+<style>
+  .gradient-green-bg {
+    background: linear-gradient(90deg, rgba(231, 254, 95, 0.4) 0%, rgba(83, 226, 141, 0.4) 100%);
+  }
+  .bg-blue-custom {
+    background: #1A6AC9;
+  }
+  .hidden-class {
+    width: 890px !important;
+  }
+  .swiper-button-next {
+    color: #000000 !important;
+    right: 10% !important;
+  }
+  .swiper-button-prev {
+    color: #000000 !important;
+    left: 10% !important;
+  }
+  .swiper-button-next::after,
+  .swiper-button-prev::after {
+    display: none;
+  }
+  .swiper-button-disabled {
+    opacity: 1 !important;
+    background: transparent !important;
+    duration: 300;
+  }
+  .swiper-pagination {
+    bottom: -30px !important;
+  }
+  .swiper-pagination-bullet {
+    background: #000000 !important;
+    opacity: 0.2 !important;
+    margin: 0 6px !important;
+    width: 8px;
+    transition: width 0.3s ease !important;
+  }
+  .swiper-pagination-bullet-active {
+    width: 30px;
+    opacity: 1 !important;
+    border-radius: 5px !important;
+  }
+  @media(max-width: 1350px) {
+    .swiper-button-next {
+      right: 10px !important;
+    }
+    .swiper-button-prev {
+      left: 10px !important;
+    }
+  }
+  @media(max-width: 1024px) {
+    .swiper-button-next {
+      display: none;
+    }
+    .swiper-button-prev {
+      display: none;
+    }
+    .hidden-class {
+      width: 100% !important;
+    }
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Index Review Swiper",
+    "settings": [
+      {
+        "type": "text",
+        "id": "rewiew-section-header",
+        "default": "1000+ reviews",
+        "label": "Rewiew Section Header Upper Part"
+      }, {
+        "type": "text",
+        "id": "rewiew-header-big",
+        "default": "Here's what golfers have to say",
+        "label": "Review Section Big Header"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Index Rewiev Swiper",
+        "type": "index-rewiev-swiper",
+        "settings": [
+          {
+            "type": "text",
+            "id": "swiper-author-name",
+            "default": "Julia D.",
+            "label": "Swiper Author Name"
+          },
+          {
+            "type": "image_picker",
+            "id": "swiper-author-image",
+            "label": "Swiper Author Image"
+          },
+          {
+            "type": "image_picker",
+            "id": "swiper-author-image-big",
+            "label": "Swiper Author Image Big"
+          },
+          {
+            "type": "image_picker",
+            "id": "swiper-social-icon",
+            "label": "Swiper Social Image"
+          }, {
+            "type": "text",
+            "id": "swiper-review-heading",
+            "default": "Swing confidence has significantly improved ",
+            "label": "Swiper Review Heading"
+          }, {
+            "type": "text",
+            "id": "swiper-review-text",
+            "default": "I was initially hesitant to buy the divot daddy because I saw similar products in the past that moved around a lot and didn't stick to the ground. I gave the Divot Daddy a try because of their 30 day guarantee. Its been just over 30 days since I've bought one and I'm very happy with it's performance, its helped me fix a key error in my swing that had me slicing my shots cluelessly.",
+            "label": "Swiper Review Text"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

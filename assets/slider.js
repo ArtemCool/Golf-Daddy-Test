@@ -3,8 +3,8 @@ const Slider = () => ({
 	slider: null,
 	active: 1,
 	total: null,
-	interval: 3000,
-	autoplay: false,
+	interval: 2000,
+	autoplay: true,
 	direction: 'right',
 	init() {
 
@@ -26,6 +26,7 @@ const Slider = () => ({
 			let slider = this.$refs.slider
 			let current = slider.scrollLeft
 			let offset = slider.firstElementChild.getBoundingClientRect().width
+			console.log(offset);
 
 			slider.scrollTo({ left: strategy(current, offset) })
 	},

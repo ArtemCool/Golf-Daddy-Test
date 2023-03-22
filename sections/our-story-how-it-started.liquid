@@ -1,0 +1,244 @@
+<div class="pt-16 pb-4 container">
+  <h2 class="font-helvetica text-2xl lg:text-3xl text-center pb-16">{{ section.settings.how_it_started_heading }}</h2>
+  <div class="grid md:grid-cols-2 gap-10 lg:gap-28 items-center justify-center pb-16 md:pb-36 relative">
+    <div class="relative max-w-[600px] mx-auto md:mx-0 rounded-3xl">
+      {{ section.settings.origins_image | image_url: width: 600 | image_tag: loading: 'lazy' }}
+      <div class="absolute top-7 -right-4 sm:bottom-0">
+        {% render 'icon-product-master-line' %}
+      </div>
+      <div class="absolute z-20 -bottom-7 -right-6 border-2 border-white rounded-3xl">
+        {{ section.settings.origins_small_image | image_url: width: 100 | image_tag: loading: 'lazy' }}
+      </div>
+    </div>
+    <div class="grid gap-4">
+      <span class="font-grace text-2xl sm:text-3xl uppercase">{{ section.settings.origins_upper_span }}</span>
+      <h3 class="font-scania text-xl sm:text-3xl lg:text-4xl">{{ section.settings.origins_heading }}</h3>
+      {% render 'icon-small-custom-underline' %}
+      <p class="font-helvetica text-sm lg:text-base">{{ section.settings.origins_text }}</p>
+    </div>
+    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 hidden md:block">
+      {% render 'icon-custom-arrow-down-1' %}
+    </div>
+  </div>
+</div>
+
+<div class="pb-16 container">
+  <div class="grid md:grid-cols-2 gap-10 lg:gap-28 items-center justify-center">
+    <div class="grid gap-4">
+      <span class="font-grace text-2xl sm:text-3xl uppercase">{{ section.settings.founders_upper_span }}</span>
+      <h3 class="font-scania text-xl sm:text-3xl lg:text-4xl">{{ section.settings.founders_heading }}</h3>
+      {% render 'icon-small-custom-underline' %}
+      <p class="font-helvetica text-sm lg:text-base">{{ section.settings.founders_text }}</p>
+    </div>
+    <div class="relative max-w-[600px] mx-auto md:mx-0 rounded-3xl row-start-1 md:col-start-2">
+      {{ section.settings.founders_image | image_url: width: 600 | image_tag: loading: 'lazy' }}
+      <div class="absolute -bottom-16 right-0 z-30">
+        <span class="uppercase font-grace text-[70px] lg:text-[80px] xl:text-[96px] gradient-text whitespace-nowrap">{{ section.settings.founders_image_span }}</span>
+      </div>
+      <div class="absolute z-20 -bottom-7 -right-6 border-2 border-white rounded-3xl">
+        {{ section.settings.founders_small_image | image_url: width: 120 | image_tag: loading: 'lazy' }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="pt-16 pb-4 container">
+  <div class="grid md:grid-cols-2 gap-10 lg:gap-28 items-center justify-center pb-16 md:pb-36 relative">
+    <div class="relative max-w-[600px] mx-auto md:mx-0 rounded-3xl">
+      {{ section.settings.journey_image | image_url: width: 600 | image_tag: loading: 'lazy' }}
+      <div class="absolute z-20 bottom-11 -right-6 border-2 border-white rounded-3xl">
+        {{ section.settings.journey_image_first | image_url: width: 100 | image_tag: loading: 'lazy' }}
+      </div>
+      <div class="absolute z-20 -top-7 -left-6 border-2 border-white rounded-3xl">
+        {{ section.settings.journey_image_second | image_url: width: 100 | image_tag: loading: 'lazy' }}
+      </div>
+    </div>
+    <div class="grid gap-4">
+      <span class="font-grace text-2xl sm:text-3xl uppercase">{{ section.settings.journey_upper_span }}</span>
+      <h3 class="font-scania text-xl sm:text-3xl lg:text-4xl">{{ section.settings.journey_heading }}</h3>
+      {% render 'icon-small-custom-underline' %}
+      <p class="font-helvetica text-sm lg:text-base">{{ section.settings.journey_text }}</p>
+    </div>
+    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 hidden md:block">
+      {% render 'icon-custom-arrow-down-2' %}
+    </div>
+  </div>
+</div>
+
+<div class="pb-16 container">
+  <div class="grid md:grid-cols-2 gap-10 lg:gap-28 items-center justify-center">
+    <div class="grid gap-4">
+      <h3 class="font-scania text-xl sm:text-3xl lg:text-4xl">{{ section.settings.next_heading }}</h3>
+      {% render 'icon-small-custom-underline' %}
+      <p class="font-helvetica text-sm lg:text-base">{{ section.settings.next_text }}</p>
+    </div>
+    <div class="relative max-w-[600px] mx-auto md:mx-0 rounded-3xl row-start-1 md:col-start-2">
+      {{ section.settings.next_image | image_url: width: 600 | image_tag: loading: 'lazy' }}
+      <div class="absolute z-20 -bottom-7 -right-6 border-2 border-white rounded-3xl">
+        {{ section.settings.next_image_first | image_url: width: 120 | image_tag: loading: 'lazy' }}
+      </div>
+      <div class="absolute z-20 top-24 -left-6 border-2 border-white rounded-3xl">
+        {{ section.settings.next_image_second | image_url: width: 100 | image_tag: loading: 'lazy' }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="py-16 container">
+  <div class="grid gap-4">
+    <span class="font-grace text-2xl sm:text-3xl uppercase text-center">{{ section.settings.who_we_are_upper_span }}</span>
+    <h3 class="font-scania text-xl sm:text-3xl lg:text-4xl text-center">{{ section.settings.who_we_are_heading }}</h3>
+    <div class="flex justify-center items-center">
+      {% render 'icon-small-custom-underline' %}
+    </div>
+    <p class="font-helvetica text-sm lg:text-base text-center lg:px-32">{{ section.settings.who_we_are_text }}</p>
+    <div class="mx-auto relative rounded-3xl">
+      {{ section.settings.who_we_are_image | image_url: width: 1020 | image_tag: loading: 'lazy' }}
+      <div class="w-full h-full absolute top-0 left-0 bg-black z-20 opacity-20 flex items-center justify-center rounded-3xl"></div>
+      <div class="z-30 absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
+        {% render 'icon-animation' %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "How It Started",
+    "settings": [
+      {
+        "type": "text",
+        "id": "how_it_started_heading",
+        "default": "How It Started",
+        "label": "Heading"
+      },
+      {
+        "type": "image_picker",
+        "id": "origins_image",
+        "label": "Origins Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "origins_small_image",
+        "label": "Origins Small Image"
+      },
+      {
+        "type": "text",
+        "id": "origins_upper_span",
+        "default": "tilte",
+        "label": "Origins Upper Span"
+      }, {
+        "type": "text",
+        "id": "origins_heading",
+        "default": "OUR ORIGINS",
+        "label": "Origins Heading"
+      }, {
+        "type": "text",
+        "id": "origins_text",
+        "default": "It started in our college dorm room after a historic terrible round of golf. We couldn’t justify paying for the range or lessons anymore as they were not that effective, but we believed that there was still a better way for golfers to improve.<br><br>That evening we got scrappy and began pondering how anybody could turn small spaces in their homes, into golf training facilities.",
+        "label": "Origins Text"
+      }, {
+        "type": "text",
+        "id": "founders_upper_span",
+        "default": "title",
+        "label": "Founders Upper Span"
+      }, {
+        "type": "text",
+        "id": "founders_heading",
+        "default": "THE FOUNDERS",
+        "label": "Founders Heading"
+      }, {
+        "type": "text",
+        "id": "founders_text",
+        "default": "The two of us (Daniel & Paul) met each other while working at a startup. We both worked on the marketing team and combined our experience in content creation & digital marketing to 3x the userbase.<br><br>Long after we both had left our jobs, we decided we wanted to pursue something we were passionate about. Shortly after uptaking golf we'd fallen victim to many of the imperfections of the sport. Our love for it only grew and we decided to make it our mission to spread the joys of golf to a larger playerbase by making it easier to master and enjoy!",
+        "label": "Founders Text"
+      }, {
+        "type": "image_picker",
+        "id": "founders_image",
+        "label": "Founders Image"
+      }, {
+        "type": "image_picker",
+        "id": "founders_small_image",
+        "label": "Founders Small Image"
+      }, {
+        "type": "text",
+        "id": "founders_image_span",
+        "default": "golf Daddy",
+        "label": "Founders Image Span"
+      }, {
+        "type": "text",
+        "id": "journey_upper_span",
+        "default": "title",
+        "label": "Journey Upper Span"
+      }, {
+        "type": "text",
+        "id": "journey_heading",
+        "default": "THE JOURNEY",
+        "label": "Journey Heading"
+      }, {
+        "type": "text",
+        "id": "journey_text",
+        "default": "The Divot Daddy was our first product. We noticed that one of the most common mistakes among beginner and intermediate golfers was hooking their shots. Generally speaking, divots are great indications of core pitfalls and inconsistences in ones swing as your ground impact mimics your ball impact and ultimately the direction the ball flies in. <br> <br>We made it our first mission to make that mistake easy to fix, and thats how the Divot Daddy came about. We worked hard with manufacturers to perfect the Divot Daddy to our standard of quality and effectiveness. After a few quick months, we posted a few videos on TikTok, viewers loved the Divot Daddy, and the rest is history.",
+        "label": "Journey Text"
+      }, {
+        "type": "image_picker",
+        "id": "journey_image",
+        "label": "Journey Image"
+      }, {
+        "type": "image_picker",
+        "id": "journey_image_first",
+        "label": "Journey First Small Image"
+      }, {
+        "type": "image_picker",
+        "id": "journey_image_second",
+        "label": "Journey Second Small Image"
+      }, {
+        "type": "text",
+        "id": "next_heading",
+        "default": "WHAT'S NEXT?",
+        "label": "Next Heading"
+      }, {
+        "type": "text",
+        "id": "next_text",
+        "default": "Our mission with Golf Daddy is to make golf easier to get into, learn and master. We will continue to identify the fundamentals of golf, create educational content (FREE to anybody) to improve at golf, and complimentary training aids that are not required, but will accelerate one's progress. <br><br> We also hope to bring entertainment to golf through our YouTube channel and take away from its serious connotations. We want to help grow the sport of golf and make it enjoyable for all.",
+        "label": "Next Text"
+      }, {
+        "type": "image_picker",
+        "id": "next_image",
+        "label": "Next Image"
+      }, {
+        "type": "image_picker",
+        "id": "next_image_first",
+        "label": "Next First Small Image"
+      }, {
+        "type": "image_picker",
+        "id": "next_image_second",
+        "label": "Next Second Small Image"
+      }, {
+        "type": "text",
+        "id": "who_we_are_upper_span",
+        "default": "Who we are",
+        "label": "Who We Are Upper Span"
+      }, {
+        "type": "text",
+        "id": "who_we_are_heading",
+        "default": "GolfDaddy is created by golfers",
+        "label": "Who We Are Heading"
+      }, {
+        "type": "text",
+        "id": "who_we_are_text",
+        "default": "Golf is one of the hardest sports to get into. Most are indoctrinated by friends and family. <br> Those who didn't have that opportunity often didn't give it a chance.",
+        "label": "Who We Are Text"
+      }, {
+        "type": "image_picker",
+        "id": "who_we_are_image",
+        "label": "Who We Are Image"
+      }
+    ],
+    "presets": [
+      {
+        "name": "How It Started"
+      }
+    ]
+  }
+{% endschema %}

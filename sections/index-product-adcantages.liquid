@@ -1,0 +1,105 @@
+<div class="container py-16">
+  <div class="flex flex-col gap-6 md:gap-11">
+    <div class="flex flex-col gap-1 sm:gap-4">
+      <span class="text-center text-xl sm:text-3xl font-grace uppercase">{{ section.settings.upper_heading_span }}</span>
+      <div class="grid gap-2">
+        <h3 class="uppercase font-scania text-xl sm:text-3xl justify-center text-black flex gap-1">{{ section.settings.upper_heading_black }}<span class="uppercase gradient-text">{{ section.settings.upper_heading_gradient }}</span>
+        </h3>
+        <div class="mx-auto">
+          {% render 'icon-small-custom-underline' %}
+        </div>
+      </div>
+    </div>
+    <div class="xl:px-8 grid grid-cols-3 items-center gap-4 md:gap-8">
+      <span class="font-scania text-end text-md sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl">{{ section.settings.content-left-text }}</span>
+      <div class="rounded-3xl">
+        {{ section.settings.content_image | image_url: width: 400 | image_tag: loading: 'lazy' }}
+      </div>
+      <span class="font-scania text-start text-md sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl">{{ section.settings.content-right-text }}</span>
+    </div>
+    <div class="px-0 sm:px-24 md:px-40 lg:px-64 xl:px-80">
+      <p class="text-center font-helvetica text-sm lg:text-md">{{ section.settings.content_text_description }}</p>
+    </div>
+    <ul class="lg:px-16 grid md:grid-cols-3 gap-6 lg:gap-14">
+      {% for block in section.blocks %}
+        <div class="flex flex-col gap-2 sm:gap-4 items-center justify-center">
+          <div class="rounded-full">
+            {{ block.settings.advantage_image | image_url: width: 100 | image_tag: loading: 'lazy' }}
+          </div>
+          <h4 class="font-helvetica font-medium text-md sm:text-lg lg:text-xl">{{ block.settings.advantage_heading }}</h4>
+          <span class="text-secondary_gray text-sm">{{ block.settings.advantage_description }}</span>
+        </div>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Index Product Advantages",
+    "settings": [
+      {
+        "type": "text",
+        "id": "upper_heading_span",
+        "default": "A golf training aid",
+        "label": "Upper Heading Span"
+      },
+      {
+        "type": "text",
+        "id": "upper_heading_black",
+        "default": "Our product ",
+        "label": "Upper Heading Black Part"
+      },
+      {
+        "type": "text",
+        "id": "upper_heading_gradient",
+        "default": "Mission",
+        "label": "Upper Heading Gradient Part"
+      },
+      {
+        "type": "text",
+        "id": "content-left-text",
+        "default": "What in",
+        "label": "Content Left Text"
+      }, {
+        "type": "text",
+        "id": "content-right-text",
+        "default": "The Box?",
+        "label": "Content Right Text"
+      }, {
+        "type": "image_picker",
+        "id": "content_image",
+        "label": "Content Image"
+      }, {
+        "type": "text",
+        "id": "content_text_description",
+        "default": "I was initially hesitant to buy the divot daddy because I saw similar products in the past that moved around a lot and didn't stick to the ground. I gave the Divot",
+        "label": "Content Text Description"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Advantage Item",
+        "limit": 3,
+        "type": "advantage_item",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "advantage_image",
+            "label": "Advantage Image"
+          }, {
+            "type": "text",
+            "id": "advantage_heading",
+            "default": "Master Your Swiming Path",
+            "label": "Advantage Heading"
+          }, {
+            "type": "text",
+            "id": "advantage_description",
+            "default": "Lorem ipsum dolor sit amet,",
+            "label": "Advantage Description"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

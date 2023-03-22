@@ -1,0 +1,63 @@
+<div class="gradient-green-backg py-16">
+  <div class="container">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-11 items-center justify-center">
+      <div class="grid gap-6 relative row-start-2 sm:row-start-1">
+        <h3 class="font-scania text-xl sm:text-3xl lg:text-4xl">{{ section.settings.master_heading }}</h3>
+        {% render 'icon-small-custom-underline' %}
+        <p class="font-helvetica text-sm sm:text-md">{{ section.settings.master_text }}</p>
+        <div class="xl:absolute hidden xl:block -top-14 -left-20 w-min mx-auto xl:mx-0 pb-4 sm:pb-0">
+          {% render 'icon-black-animation' %}
+        </div>
+      </div>
+      <div class="">
+        <div class="max-w-[500px] mx-auto relative rounded-3xl">
+          {{ section.settings.master_image | image_url: width: 560 | image_tag: loading: 'lazy' }}
+          <div class="absolute sm:-top-2 -left-9 bottom-3 sm:bottom-0">
+            {% render 'icon-product-master-line' %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .gradient-green-backg {
+    background: linear-gradient(90deg, rgba(231, 254, 95, 0.4) 0%, rgba(83, 226, 141, 0.4) 100%);
+  }
+  @keyframes spinAnim {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .animation-class {
+    animation: spinAnim 15s linear 0s infinite;
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Master Your Swing Section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "master_heading",
+        "default": "MASTER YOUR SWING PATH",
+        "label": "Master Section Heading"
+      }, {
+        "type": "text",
+        "id": "master_text",
+        "default": "Improve your golf swing by <b>mastering your divot.</b><br><br> A divot tells you everything about your swing. Seeing an instant representation of your divot, helps you build muscle memory for that <b>perfect swing.</b>",
+        "label": "Master Section Text"
+      }, {
+        "type": "image_picker",
+        "id": "master_image",
+        "label": "Master Section Image"
+      }
+    ]
+  }
+{% endschema %}

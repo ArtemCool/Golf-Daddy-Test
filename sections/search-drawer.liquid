@@ -1,0 +1,93 @@
+<!-- SEARCH MENU -->
+<div
+  x-show="searchMenuOpen"
+  x-on:click="searchMenuOpen = false; document.body.classList.remove('overflow-hidden')"
+  class="fixed top-0 right-0 z-40 bg-black opacity-30 w-full h-screen"></div>
+<div
+  class="search-menu-class fixed top-0 right-0 z-50 min-h-screen h-screen overflow-auto sm:w-1/2 lg:w-4/12 w-full"
+  x-show="searchMenuOpen"
+  x-transition:enter="transition ease-out duration-150"
+  x-transition:enter-start="translate-x-full"
+  x-transition:enter-end="translate-x-0"
+  x-transition:leave="transition ease-out duration-150"
+  x-transition:leave-start="translate-x-0"
+  x-transition:leave-end="translate-x-full">
+  <div class="bg-white h-full p-4 flex flex-col justify-between">
+    <div class="flex flex-col">
+      <div class="border-b border-gray-300 p-2 flex items-center justify-between">
+        <h2 class="font-medium font-helvetica text-lg">Search</h2>
+        <div x-on:click="searchMenuOpen = false; document.body.classList.remove('overflow-hidden') ">
+          {% render 'icon-close' %}
+        </div>
+      </div>
+      <div class="py-4">
+
+        <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
+
+        <predictive-search>
+          <form
+            action="{{ routes.search_url }}"
+            method="get"
+            role="search">
+            <label class="label border-b border-gray-300 pb-6">
+              <input
+                id="Search"
+                type="search"
+                name="q"
+                value="{{ search.terms | escape }}"
+                placeholder="{{ section.settings.search-placeholde-text }}"
+                class="header__search-input px-4 py-2 w-full rounded-full focus:outline-none border border-gray-300"
+                role="combobox"
+                aria-expanded="false"
+                aria-owns="predictive-search-results-list"
+                aria-controls="predictive-search-results-list"
+                aria-haspopup="listbox"
+                aria-autocomplete="list"
+                autocorrect="off"
+                autocomplete="off"
+                autocapitalize="off"
+                spellcheck="false">
+            </label>
+            <input
+              name="options[prefix]"
+              type="hidden"
+              value="last">
+            <div
+              id="predictive-search"
+              tabindex="-1"
+              class="mt-8"></div>
+          </form>
+        </predictive-search>
+      </div>
+    </div>
+
+    <div class="justify-end flex justify-center items-center pt-6 border-t border-gray-300 pb-2">
+      <a class="w-full py-6 text-center border-class font-helvetica font-bold hover:bg-gray-200" href="{{ routes.search_url }}">{{ section.settings.search_button_text }}</a>
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Predictive Search",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "predictive_search_enabled",
+        "label": "Predictive Search Enabled",
+        "default": true
+      }, {
+        "type": "text",
+        "id": "search-placeholde-text",
+        "label": "Search Placeholder Text",
+        "default": "Type here..."
+      }, {
+        "type": "text",
+        "id": "search_button_text",
+        "label": "Search Button Text",
+        "default": "See all resultats"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,74 @@
+<div class="relative">
+  <!-- BACKGROUND -->
+  <img
+    src="{{ section.settings.background_image | image_url }}"
+    class="w-full z-0 absolute left-0 top-0 h-full object-cover"
+    loading="lazy"
+    width=""
+    height="">
+  <div class="bg-black w-full h-full absolute left-0 top-0 z-10 opacity-50"></div>
+
+  <!-- CONTENT -->
+  <div class="grid md:grid-cols-3 items-center z-20 py-36 sm:py-48 container">
+
+    <div class="col-start-1 col-end-3 flex flex-col gap-6 z-20">
+      <h1 class="font-scania font-bold text-center md:text-left text-[30px] sm::text-[35px] lg:text-[57px] uppercase text-white z-20 relative">
+        <span>{{ section.settings.shop_now_heading }}</span>
+        <div class="absolute -bottom-6 sm:-bottom-3 lg:bottom-1 left- 4 sm:-left-9">
+          {% render 'icon-shop-now-custom-underline' %}
+        </div>
+      </h1>
+      <span class="font-helvetica text-lg text-white text-center md:text-left">{{ section.settings.shop_now_text }}</span>
+      <a href="{{ routes.all_products_collection_url }}" class="border-class text-center gradient-bg w-min whitespace-nowrap py-4 px-12 duration-300 font-bold font-helvetica mx-auto md:mx-0">{{ section.settings.shop-now-button-text }}</a>
+    </div>
+
+    <!-- ANIMATION -->
+    <div class="z-20 hidden md:block">
+      {% render 'icon-animation' %}
+    </div>
+
+  </div>
+</div>
+
+<style>
+  @keyframes spinAnim {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .animation-class {
+    animation: spinAnim 15s linear 0s infinite;
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Shop Now Section",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Shop Now Background Image"
+      }, {
+        "type": "text",
+        "id": "shop_now_heading",
+        "default": "Making golf fun & accessible for the younger generation",
+        "label": "Shop Now Heading"
+      }, {
+        "type": "text",
+        "id": "shop_now_text",
+        "default": "I was initially hesitant to buy the divot daddy because I saw similar",
+        "label": "Shop Now Text"
+      }, {
+        "type": "text",
+        "id": "shop-now-button-text",
+        "default": "Shop now",
+        "label": "Shop Now Button Text"
+      }
+    ]
+  }
+{% endschema %}

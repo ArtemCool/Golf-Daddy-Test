@@ -1,95 +1,223 @@
-<header>
-	<div class="container">
-		<div class="header grid grid-cols-[1fr_2fr_1fr] items-center md:py-[40px] py-[20px]">
-			<!-- Logo -->
-			<div class="header__logo">
-				{% if section.settings.logo != blank %}
-					<a href="/">
-						{{ section.settings.logo | image_url: width: 200 | image_tag: loading: 'lazy' }}
-					</a>
-					{% else %}
-						<a href="/">
-							{{ shop.name }}
-						</a>
-				{% endif %}
-			</div>
+{% if section.settings.menu.links == blank %}
+  {% assign main_menu_linklist = linklists[section.settings.menu].links %}
+{% else %}
+  {% assign main_menu_linklist = section.settings.menu.links %}
+{% endif %}
 
-			<!-- Navigation -->
-			<div class="-order-1 md:relative md:order-none" x-data="{ showSearch: false }">
-				<div 
-					class="absolute -top-3 w-full bg-white z-10"
-					x-transition
-					x-cloak
-					x-show="showSearch"
-					@toggle-search.window="showSearch = !showSearch"
-				>
-					{% render 'search-input', class: 'hover:stroke-accent w-10' %}
-				</div>
-				{% render 'header-navigation' %}
-			</div>
+<header class="bg-transparent absolute left-0 w-full sm:px-8">
+  <div class="container">
+    <div class="header grid grid-cols-3 items-center md:py-[20px] sm:py-[20px] py-[8px]">
 
-			<!-- Icons -->
-			<div class="header__icons flex items-center justify-end md:gap-3 gap-0" x-data="{ cart_count: {{ cart.item_count }}, showSearch: false }">
-
-				<button 
-					type="button"
-					title="Search button"
-					class="hidden md:block"
-					@click="$dispatch('toggle-search'); showSearch = !showSearch"
-				>
-					<div x-show="!showSearch">
-						{% render 'icon-search', class: 'w-10 stroke-textColor hover:stroke-accent' %}
-					</div>
-					<div x-show="showSearch">
-						{% render 'icon-close', class: 'w-5 scale-150 origin-right fill-textColor hover:fill-accent' %}
-					</div>
-				</button>
-
-        {%- if shop.customer_accounts_enabled -%}
-          <div class="account-menu-wrapper hidden md:block">
-            <a href="{{ routes.account_url }}" 
-              title="account link"
-						>
-              {% render 'icon-account', class: 'w-10 mx-auto stroke-textColor hover:stroke-accent' %}
-            </a>
-          </div>
-        {%- endif -%}
-
-				<div
-      	  @cart-count-updated.window="cart_count = $event.detail"
-				>
-					<a
-						title="Cart button"
-						class="relative text-center group cursor-pointer"
-						href="{{ routes.cart_url }}"
-						{% comment %} @click.prevent="$dispatch('toggle-cart'), document.body.classList.add('overflow-hidden')" {% endcomment %}
-					>
-						{% render 'icon-cart', class: 'w-10 stroke-textColor group-hover:stroke-accent' %}
-						<span x-text="cart_count" class="cart__count min-w-[22px] text-sm min-h-[22px] absolute grid place-content-center rounded-full -top-3 -right-1 text-white bg-black group-hover:bg-accent"> {{ cart.item_count }} </span>
-					</a>
-				</div>
-				
+      <!-- Navigation -->
+      <div class="-order-1 md:order-none hidden lg:block" x-data="{ showSearch: false }">
+        <div class="flex items-center justify-between" x-data="{ submenuDesctopOpen: false }">
+          <!-- SHOP POP UP MENU -->
+          {% for link in main_menu_linklist %}
+            {% if link.links != blank %}
+              <div class="" @click="submenuDesctopOpen = !submenuDesctopOpen; document.body.classList.toggle('overflow-hidden')">
+                {% if template.name == "index" %}
+                  <div class="">
+                    <span class="text-white font-helvetica font-normal flex items-center gap-1 whitespace-nowrap relative group">
+                      {% render 'icon-golf-ball-menu-hover-gradient' %}
+                      {{ link.title }}
+                    </span>
+                  </div>
+                {% else %}
+                  <div class="">
+                    <span class="text-black font-helvetica font-normal flex items-center gap-1 whitespace-nowrap relative group">
+                      {% render 'icon-golf-ball-menu-hover-gradient-black' %}
+                      {{ link.title }}
+                    </span>
+                  </div>
+                {% endif %}
+              </div>
+              <div
+                x-cloak
+                x-show="submenuDesctopOpen"
+                @click="submenuDesctopOpen = false; document.body.classList.remove('overflow-hidden')"
+                class="overlay transition-all z-30 w-screen h-screen top-0 left-0 fixed bg-black opacity-30"></div>
+              <div
+                class="absolute w-full top-full left-0 z-40"
+                x-show="submenuDesctopOpen"
+                x-cloak
+                x-transition>
+                <!-- POP UP CONTENT -->
+                <div class="container">
+                  <ul class="bg-white p-11 grid grid-cols-3 gap-8 rounded-2xl">
+                    {% for product in section.settings.shop_pop_up_collection.products %}
+                      <li class="group diffrent-backgrounds rounded-2xl overflow-hidden">
+                        <div class="rounded-2xl object-cover overflow-hidden mb-6">
+                          <a href="{{ product.url }}" class="rounded-2xl">
+                            <div class="h-[280px] overflow-hidden rounded-2xl p-2 group-hover:scale-105 duration-300">
+                              {{ product.featured_image | image_url: width: 408 | image_tag: loading: 'lazy' }}
+                            </div>
+                          </a>
+                        </div>
+                        <h3 class="text-center font-helvetica font-medium font-xl group-hover:underline">{{ product.title }}</h3>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+            {% else %}
+              {% unless template.name == "index" %}
+                <a class="" href="{{ link.url }}">
+                  <span class="text-black font-helvetica font-normal flex items-center gap-1 whitespace-nowrap relative group">
+                    {% render 'icon-golf-ball-menu-hover-black' %}
+                    {{ link.title }}
+                  </span>
+                </a>
+              {% else %}
+                <a class="" href="{{ link.url }}">
+                  <span class="text-white font-helvetica font-normal flex items-center gap-1 whitespace-nowrap relative group">
+                    {% render 'icon-golf-ball-menu-hover' %}
+                    {{ link.title }}
+                  </span>
+                </a>
+              {% endunless %}
+            {% endif %}
+            {% if forloop.index == 3 %}
+              {% break %}
+            {% endif %}
+          {% endfor %}
+        </div>
       </div>
 
-		</div>
-	</div>
+      <!-- MOBILE BURGER MENU RENDER -->
+      <div class="lg:hidden">
+        {% render 'header-navigation' %}
+      </div>
+
+      <!-- Logo -->
+      <div class="header__logo flex justify-center">
+        {% if section.settings.logo != blank %}
+          <a href="{{ routes.root_url }}">
+            {{ section.settings.logo | image_url: width: 124 | image_tag: loading: 'lazy' }}
+          </a>
+        {% else %}
+          <a href="{{ routes.root_url }}">
+            {{ shop.name }}
+          </a>
+        {% endif %}
+      </div>
+
+      <!-- Icons -->
+      <div class="header__icons flex items-center justify-end gap-3 sm:gap-7 lg:gap-0 lg:justify-between flex" x-data="{ cart_count: {{ cart.item_count }}, showSearch: false }">
+
+        {% for link in main_menu_linklist %}
+          {% if forloop.index > 3 %}
+            {% unless template.name == "index" %}
+              <a class="hidden lg:block" href="{{ link.url }}">
+                <span class="text-black font-helvetica font-normal flex items-center gap-1 whitespace-nowrap relative group">
+                  {% render 'icon-golf-ball-menu-hover-black' %}
+                  {{ link.title }}
+                </span>
+              </a>
+            {% else %}
+              <a class="hidden lg:block" href="{{ link.url }}">
+                <span class="text-white font-helvetica font-normal flex items-center gap-1 whitespace-nowrap relative group">
+                  {% render 'icon-golf-ball-menu-hover' %}
+                  {{ link.title }}
+                </span>
+              </a>
+            {% endunless %}
+          {% endif %}
+        {% endfor %}
+
+        <button
+          type="button"
+          title="Search button"
+          class=""
+          x-on:click="searchMenuOpen = !searchMenuOpen; document.body.classList.toggle('overflow-hidden')">
+          <div class="flex gap-2 items-center group">
+            {% if template.name == "index" %}
+              {% render 'icon-search', class: 'w-10' %}
+              <span class="text-white font-helvetica font-normal group-hover:text-gray-400 duration-300 hidden lg:block">Search</span>
+            {% else %}
+              {% render 'icon-search-black', class: 'w-10 stroke-textColor hover:stroke-accent' %}
+              <span class="text-black font-helvetica font-normal group-hover:text-gray-400 duration-300 hidden lg:block">Search</span>
+            {% endif %}
+          </div>
+        </button>
+
+        <div @cart-count-updated.window="cart_count = $event.detail">
+          <a
+            title="Cart button"
+            class="flex items-center gap-2 group"
+            href="{{ routes.cart_url }}"
+            @click.prevent="$dispatch('toggle-cart'), document.body.classList.add('overflow-hidden')">
+            {% if template.name == "index" %}
+              {% render 'icon-cart', class: 'w-10' %}
+              <span class="text-white font-helvetica font-normal group-hover:text-gray-400 duration-300 hidden lg:block">Cart</span>
+              <span x-text="cart_count" class="cart__count flex items-center justify-center min-w-[24px] min-h-[24px] gradient-bg-cart group-hover:bg-gray duration-300 rounded-full font-normal font-helvetica">
+                {{ cart.item_count }}
+              </span>
+            {% else %}
+              {% render 'icon-cart-black', class: 'w-10' %}
+              <span class="text-black font-helvetica font-normal group-hover:text-gray-400 duration-300 hidden lg:block">Cart</span>
+              <span x-text="cart_count" class="cart__count flex items-center justify-center min-w-[24px] min-h-[24px] gradient-bg-cart group-hover:bg-gray duration-300 rounded-full font-normal font-helvetica">
+                {{ cart.item_count }}
+              </span>
+            {% endif %}
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
 </header>
 
+<style>
+  .border-class {
+    background: #FFFFFF;
+    border: 3px solid #000000;
+    box-shadow: 0 3px 0 #000000;
+    border-radius: 70px;
+  }
+  .gradient-bg {
+    background: linear-gradient(90deg, #E7FE5F 0%, #53E28D 100%);
+  }
+  .gradient-bg-cart {
+    background: linear-gradient(90deg, #E7FE5F 0%, #53E28D 100%);
+  }
+  .gradient-bg:hover {
+    background: white;
+  }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  .diffrent-backgrounds:first-child div {
+    background-color: #BADE2F;
+  }
+  .diffrent-backgrounds:nth-child(2) div {
+    background-color: #6CD565;
+  }
+  .diffrent-backgrounds:last-child div {
+    background-color: #53E28D;
+  }
+</style>
+
 {% schema %}
-{
-  "name": "Header",
-  "settings": [
-    {
-      "type": "image_picker",
-      "id": "logo",
-      "label": "Logo"
-    },
-    {
-      "type": "link_list",
-      "id": "menu",
-      "default": "main-menu",
-      "label": "Menu"
-    }
-  ]
-}
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo"
+      }, {
+        "type": "link_list",
+        "id": "menu",
+        "default": "main-menu",
+        "label": "Menu"
+      }, {
+        "type": "collection",
+        "id": "shop_pop_up_collection",
+        "label": "Shop Pop Up Collection"
+      }
+    ]
+  }
 {% endschema %}

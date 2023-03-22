@@ -1,0 +1,58 @@
+<div class="py-16 container">
+  <div class="grid gap-6">
+    <h3 class="font-scania text-xl sm:text-3xl lg:text-4xl text-center">{{ section.settings.faq_heading }}</h3>
+    <div class="flex items-center justify-center">
+      {% render 'icon-small-custom-underline' %}
+    </div>
+    <div class="pt-4 grid gap-2">
+      {% for block in section.blocks %}
+        <div class="max-w-[660px] py-2 px-4 w-full mx-auto border border-border-lite_gray_text rounded-lg">
+          <div class="grid gap-3" x-data="{ showFAQ: false }">
+            <div class="flex items-center gap-2 group cursor-pointer" @click="showFAQ = !showFAQ">
+              <span class="font-helvetica text-sm sm:text-base text-black group-hover:text-custom_green duration-300">-</span>
+              <h4 class="font-helvetica text-sm sm:text-base text-black group-hover:text-custom_green duration-300">{{ block.settings.question_heading }}</h4>
+            </div>
+            <p
+              x-cloak
+              x-show="showFAQ"
+              x-transition
+              class="text-sm sm:text-base font-helvetica text-secondary_gray">{{ block.settings.question_text }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "FAQ Section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "faq_heading",
+        "default": "Got questions?",
+        "label": "FAQ HEading"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Questions",
+        "type": "questions",
+        "settings": [
+          {
+            "type": "text",
+            "id": "question_heading",
+            "default": "How long does it take to process an order?",
+            "label": "Question Heading"
+          }, {
+            "type": "text",
+            "id": "question_text",
+            "default": "Once an order is shipped out, tracking information is automatically sent via email to our customers. Please check your junk / spam inbox if you're unsure, however, if you have not received one within our typical timeframe, feel free to reach out via the form below.",
+            "label": "Answer"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,126 @@
+<div class="pt-8">
+  <div class="py-16 mt-20 gradient-green-bg">
+    <div class="grid gap-6 container relative">
+      <div class="relative flex justify-center">
+        <span class="gradient-text uppercase text-6xl sm:text-8xl lg:text-9xl font-grace text-center">{{ section.settings.upper_span_story }}</span>
+        <span class="text-black font-grace uppercase text-xl sm:text-2xl absolute -bottom-4 sm:bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2">{{ section.settings.upper_span_story }}</span>
+      </div>
+      <h1 class="font-scania text-xl sm:text-3xl lg:text-4xl text-center">{{ section.settings.heading_story }}</h1>
+      <div class="flex items-center justify-center">
+        {% render 'icon-small-custom-underline' %}
+      </div>
+      <p class="max-w-[530px] mx-auto text-center font-helvetica text-sm">{{ section.settings.text_story }}</p>
+      <div class="mx-auto pt-8 md:pt-20">
+        <div class="animation-class">
+          {% render 'icon-our-story-anim' %}
+        </div>
+      </div>
+      <div class="absolute -left-48 top-1/2 -translate-y-1/2 hidden lg:block">
+        <div class="relative">
+          <div class="z-10">
+            {{ section.settings.first_big_image | image_url: width: 300 | image_tag: loading: 'lazy' }}
+          </div>
+          <div class="absolute z-20 -top-7 right-6 border-2 border-white rounded-3xl">
+            {{ section.settings.first_group_first_small_image | image_url: width: 80 | image_tag: loading: 'lazy' }}
+          </div>
+          <div class="absolute z-20 -bottom-11 -right-16 border-2 border-white rounded-3xl">
+            {{ section.settings.first_group_second_small_image | image_url: width: 100 | image_tag: loading: 'lazy' }}
+          </div>
+        </div>
+      </div>
+      <div class="absolute -right-48 top-1/2 -translate-y-1/2 hidden lg:block">
+        <div class="relative">
+          <div class="z-10">
+            {{ section.settings.second_big_image | image_url: width: 300 | image_tag: loading: 'lazy' }}
+          </div>
+          <div class="absolute z-20 -top-16 left-20 border-2 border-white rounded-3xl">
+            {{ section.settings.second_group_first_small_image | image_url: width: 80 | image_tag: loading: 'lazy' }}
+          </div>
+          <div class="absolute z-20 -bottom-16 -left-16 border-2 border-white rounded-3xl">
+            {{ section.settings.second_group_second_small_image | image_url: width: 120 | image_tag: loading: 'lazy' }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .gradient-green-bg {
+    background: linear-gradient(90deg, rgba(231, 254, 95, 0.4) 0%, rgba(83, 226, 141, 0.4) 100%);
+  }
+  .gradient-text {
+    color: transparent;
+    background-color: #53E28D;
+    background-image: linear-gradient(90deg, #E7FE5F 0%, #53E28D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  @keyframes spinAnim {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  .animation-class {
+    animation: spinAnim 15s linear 0s infinite;
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Our Story",
+    "settings": [
+      {
+        "type": "text",
+        "id": "upper_span_story",
+        "default": "Our Story",
+        "label": "Upper Span"
+      },
+      {
+        "type": "text",
+        "id": "heading_story",
+        "default": "GolfDaddy is created by golfers",
+        "label": "Heading"
+      },
+      {
+        "type": "text",
+        "id": "text_story",
+        "default": "Golf is one of the hardest sports to get into. Most are indoctrinated by friends and family. Those who didn't have that opportunity often didn't give it a chance. Those who did still find it difficult or expensive to receive training and master the fundamental skills. This barrier to golf is what made us start Golf Daddy.",
+        "label": "Text"
+      },
+      {
+        "type": "image_picker",
+        "id": "first_big_image",
+        "label": "First Group Big Image"
+      }, {
+        "type": "image_picker",
+        "id": "first_group_first_small_image",
+        "label": "First Group First Small image"
+      }, {
+        "type": "image_picker",
+        "id": "first_group_second_small_image",
+        "label": "First Group Second Small Image"
+      }, {
+        "type": "image_picker",
+        "id": "second_big_image",
+        "label": "Second Big Image"
+      }, {
+        "type": "image_picker",
+        "id": "second_group_first_small_image",
+        "label": "Second Group First Small Image"
+      }, {
+        "type": "image_picker",
+        "id": "second_group_second_small_image",
+        "label": "Second Group Second Small Image"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Our Story"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,31 +1,61 @@
-<div class="bg-accent py-3 text-center" style="background-color: {{ section.settings.bg_color }}">
-	<div class="container" style="color: {{ section.settings.color }}">
-		{{ section.settings.text }}
-	</div>
-	
+<div class="bg-black py-2 text-center" style="background-color: {{ section.settings.bg_color }}">
+  <div class="container" style="color: {{ section.settings.color }}">
+    <div class="scrolling-wrapper flex justify-around items-center gap-11 sm:gap-2 overflow-x-scroll ovefflow-y-hidden sm:overflow-y-auto sm:overflow-auto">
+      {% for block in section.blocks %}
+        <div class="flex gap-2 items-center">
+          {{ block.settings.advantage_image | image_url: width: 20 | image_tag: loading: 'lazy' }}
+          <p class="text-sm text-gray_text whitespace-nowrap">{{ block.settings.advantage-text }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
 </div>
 
-{% schema %}
-{
-  "name": "Annoncement Bar",
-  "settings": [
-    {
-      "type": "richtext",
-      "id": "text",
-      "label": "Annoncement Bar Text",
-      "default": "<p>Welcome to Doroshev Tailwind/Alpine Shopify custom theme Template</p>"
-    },
-    {
-      "type": "color",
-      "id": "bg_color",
-      "label": "Annoncement Bar Background Color"
-    },
-    {
-      "type": "color",
-      "id": "color",
-      "default": "#ffffff",
-      "label": "Annoncement Bar Text Color"
-    }
-  ]
+<style>
+  .scrolling-wrapper::-webkit-scrollbar {
+    display: none;
+  }
 }
+</style>
+
+{% schema %}
+  {
+    "name": "Annoncement Bar",
+    "settings": [
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Annoncement Bar Background Color"
+      }, {
+        "type": "color",
+        "id": "color",
+        "default": "#ffffff",
+        "label": "Annoncement Bar Text Color"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Advantage Item",
+        "type": "advantage-item",
+        "limit": 4,
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "advantage_image",
+            "label": "Advantage Image"
+          }, {
+            "type": "text",
+            "id": "advantage-text",
+            "label": "Advantage Text",
+            "default": "Free Shipping (US Orders)"
+          }, {
+            "type": "text",
+            "id": "advantage-image-alt",
+            "label": "Advantage Image Alt",
+            "default": "Advantage Image Alt"
+          }
+        ]
+      }
+    ]
+  }
 {% endschema %}
