@@ -1,1 +1,200 @@
-<div class="">wefwef</div>
+<div class="pb-16 pt-32 container">
+  <div class="grid gap-4 pb-16">
+    <h1 class="font-scania text-xl sm:text-3xl lg:text-4xl text-center">{{ section.settings.privacy_heading }}</h1>
+    <div class="flex justify-center items-center">
+      {% render 'icon-small-custom-underline' %}
+    </div>
+  </div>
+  <div class="grid gap-10 max-w-[900px] mx-auto">
+    {% for block in section.blocks %}
+      {% case block.type %}
+
+        {% when 'privacy_text' %}
+        <p class="md:text-base text-sm font-helvetica">{{ block.settings.text_block_text }}</p>
+
+        {% when 'text_with_heading' %}
+        <div class="grid gap-4">
+          <h2 class="d:text-3xl text-xl font-helvetica font-bold">{{ block.settings.with_heading_heading }}</h2>
+          <p class="md:text-base text-sm font-helvetica">{{ block.settings.with_heading_text }}</p>
+        </div>
+
+        {% when 'list_with_heading' %}
+        <div class="grid gap-4">
+          <h2 class="d:text-3xl text-xl font-helvetica font-bold">{{ block.settings.list_head_headind }}</h2>
+          <div class="flex gap-3 pl-3">
+            <div class="bg-black min-w-[4px] max-w-[4px] min-h-[4px] max-h-[4px] mt-2 rounded-full"></div>
+            <p class="md:text-base text-sm font-helvetica">{{ block.settings.list_head_text1 }}</p>
+          </div>
+          <div class="flex gap-3 pl-3">
+            <div class="bg-black min-w-[4px] max-w-[4px] min-h-[4px] max-h-[4px] mt-2 rounded-full"></div>
+            <p class="md:text-base text-sm font-helvetica">{{ block.settings.list_head_text2 }}</p>
+          </div>
+          <div class="flex gap-3 pl-3">
+            <div class="bg-black min-w-[4px] max-w-[4px] min-h-[4px] max-h-[4px] mt-2 rounded-full"></div>
+            <p class="md:text-base text-sm font-helvetica">{{ block.settings.list_head_text3 }}</p>
+          </div>
+          <div class="flex gap-3 pl-3">
+            <div class="bg-black min-w-[4px] max-w-[4px] min-h-[4px] max-h-[4px] mt-2 rounded-full"></div>
+            <p class="md:text-base text-sm font-helvetica">{{ block.settings.list_head_text4 }}</p>
+          </div>
+        </div>
+
+        {% when 'privacy_table' %}
+        <div class="grid gap-4">
+          <h2 class="d:text-3xl text-xl font-helvetica font-bold">{{ block.settings.table_heading }}</h2>
+          <table class="border border-lite_gray_text grid">
+            <tr class="grid grid-cols-2 border-b border-lite_gray_text">
+              <td class="px-5 py-3 border-r border-lite_gray_text font-helvetica text-sm md:text-base font-bold">{{ block.settings.table-row-1-col-1 }}</td>
+              <td class="px-5 py-3 font-helvetica text-sm md:text-base font-bold">{{ block.settings.table-row-1-col-2 }}</td>
+            </tr>
+            <tr class="grid grid-cols-2 border-b border-lite_gray_text">
+              <td class="px-5 py-3 border-r border-lite_gray_text font-helvetica text-sm md:text-base">{{ block.settings.table-row-2-col-1 }}</td>
+              <td class="px-5 py-3 font-helvetica text-sm md:text-base">{{ block.settings.table-row-2-col-2 }}</td>
+            </tr>
+            <tr class="grid grid-cols-2 border-b border-lite_gray_text">
+              <td class="px-5 py-3 border-r border-lite_gray_text font-helvetica text-sm md:text-base">{{ block.settings.table-row-3-col-1 }}</td>
+              <td class="px-5 py-3 font-helvetica text-sm md:text-base">{{ block.settings.table-row-3-col-2 }}</td>
+            </tr>
+            <tr class="grid grid-cols-2">
+              <td class="px-5 py-3 border-r border-lite_gray_text font-helvetica text-sm md:text-base">{{ block.settings.table-row-4-col-1 }}</td>
+              <td class="px-5 py-3 font-helvetica text-sm md:text-base">{{ block.settings.table-row-4-col-2 }}</td>
+            </tr>
+          </table>
+        </div>
+
+      {% endcase %}
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Privacy Policy",
+    "settings": [
+      {
+        "type": "text",
+        "id": "privacy_heading",
+        "default": "Privacy policy",
+        "label": "Privacy Policy Heading"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Privacy Text",
+        "type": "privacy_text",
+        "settings": [
+          {
+            "type": "text",
+            "id": "text_block_text",
+            "default": "This Privacy Policy describes how shopgolfdaddy.com (the “Site” or “we”) collects, uses, and discloses your Personal Information when you visit or make a purchase from the Site.",
+            "label": "Privacy Text Text"
+          }
+        ]
+      }, {
+        "name": "Text With Heading",
+        "type": "text_with_heading",
+        "settings": [
+          {
+            "type": "text",
+            "id": "with_heading_heading",
+            "default": "Collecting Personal Information",
+            "label": "Heading Of Text With Heading"
+          }, {
+            "type": "text",
+            "id": "with_heading_text",
+            "default": "When you visit the Site, we collect certain information about your device, your interaction with the Site, and information necessary to process your purchases. We may also collect additional information if you contact us for customer support. In this Privacy Policy, we refer to any information that can uniquely identify an individual (including the information below) as “Personal Information”. See the list below for more information about what Personal Information we collect and why.",
+            "label": "Text Of Text With Heading"
+          }
+        ]
+      }, {
+        "name": "List With Heading",
+        "type": "list_with_heading",
+        "settings": [
+          {
+            "type": "text",
+            "id": "list_head_headind",
+            "default": "Device information",
+            "label": "List With Heading Heading"
+          },
+          {
+            "type": "text",
+            "id": "list_head_text1",
+            "default": "Examples of Personal Information collected: version of web browser, IP address, time zone, cookie information, what sites or products you view, search terms, and how you interact with the Site.",
+            "label": "First List Item"
+          },
+          {
+            "type": "text",
+            "id": "list_head_text2",
+            "default": "Purpose of collection: to load the Site accurately for you, and to perform analytics on Site usage to optimize our Site.",
+            "label": "Second List Item"
+          },
+          {
+            "type": "text",
+            "id": "list_head_text3",
+            "default": "Source of collection: Collected automatically when you access our Site using cookies, log files, web beacons, tags, or pixels ",
+            "label": "Third List Item"
+          }, {
+            "type": "text",
+            "default": "Disclosure for a business purpose: shared with our processor Shopify",
+            "id": "list_head_text4",
+            "label": "Fours List Item"
+          }
+        ]
+      }, {
+        "name": "Table",
+        "type": "privacy_table",
+        "settings": [
+          {
+            "type": "text",
+            "id": "table_heading",
+            "default": "Cookies Necessary for the Functioning of the Store",
+            "label": "Table Heading"
+          },
+          {
+            "type": "text",
+            "id": "table-row-1-col-1",
+            "default": "Name",
+            "label": "Table Column 1 Heading"
+          },
+          {
+            "type": "text",
+            "id": "table-row-1-col-2",
+            "default": "Function",
+            "label": "Table Column 2 Heading"
+          },
+          {
+            "type": "text",
+            "id": "table-row-2-col-1",
+            "default": "_ab",
+            "label": "Table Column 1 Row 2"
+          }, {
+            "type": "text",
+            "id": "table-row-2-col-2",
+            "default": "Used in connection with access to admin.",
+            "label": "Table Column 2 Row 2"
+          }, {
+            "type": "text",
+            "id": "table-row-3-col-1",
+            "default": "_secure_session_id",
+            "label": "Table Column 1 Row 3"
+          }, {
+            "type": "text",
+            "id": "table-row-3-col-2",
+            "default": "Used in connection with navigation through a storefront.",
+            "label": "Table Column 2 Row 3"
+          }, {
+            "type": "text",
+            "id": "table-row-4-col-1",
+            "default": "cart",
+            "label": "Table Column 1 Row 4"
+          }, {
+            "type": "text",
+            "default": "Used in connection with shopping cart.",
+            "id": "table-row-4-col-2",
+            "label": "Table Column 2 Row-4"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
