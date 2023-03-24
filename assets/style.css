@@ -997,6 +997,10 @@ input[type='number']::-webkit-outer-spin-button,
   margin-bottom: 1rem;
 }
 
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
 .mb-1 {
   margin-bottom: 0.25rem;
 }
@@ -1019,10 +1023,6 @@ input[type='number']::-webkit-outer-spin-button,
 
 .mt-1 {
   margin-top: 0.25rem;
-}
-
-.mt-2 {
-  margin-top: 0.5rem;
 }
 
 .mt-10 {
@@ -1186,6 +1186,18 @@ input[type='number']::-webkit-outer-spin-button,
   height: 24rem;
 }
 
+.h-\[50vh\] {
+  height: 50vh;
+}
+
+.h-\[40vh\] {
+  height: 40vh;
+}
+
+.max-h-\[4px\] {
+  max-height: 4px;
+}
+
 .max-h-\[44px\] {
   max-height: 44px;
 }
@@ -1218,12 +1230,8 @@ input[type='number']::-webkit-outer-spin-button,
   max-height: 70px;
 }
 
-.max-h-\[2px\] {
-  max-height: 2px;
-}
-
-.max-h-\[4px\] {
-  max-height: 4px;
+.max-h-\[150px\] {
+  max-height: 150px;
 }
 
 .min-h-screen {
@@ -1232,6 +1240,10 @@ input[type='number']::-webkit-outer-spin-button,
 
 .min-h-\[24px\] {
   min-height: 24px;
+}
+
+.min-h-\[4px\] {
+  min-height: 4px;
 }
 
 .min-h-\[140px\] {
@@ -1248,14 +1260,6 @@ input[type='number']::-webkit-outer-spin-button,
 
 .min-h-\[200px\] {
   min-height: 200px;
-}
-
-.min-h-\[2px\] {
-  min-height: 2px;
-}
-
-.min-h-\[4px\] {
-  min-height: 4px;
 }
 
 .w-full {
@@ -1360,6 +1364,10 @@ input[type='number']::-webkit-outer-spin-button,
   min-width: 275px;
 }
 
+.min-w-\[4px\] {
+  min-width: 4px;
+}
+
 .min-w-\[140px\] {
   min-width: 140px;
 }
@@ -1384,20 +1392,20 @@ input[type='number']::-webkit-outer-spin-button,
   min-width: 250px;
 }
 
-.min-w-\[2px\] {
-  min-width: 2px;
-}
-
-.min-w-\[4px\] {
-  min-width: 4px;
-}
-
 .max-w-\[600px\] {
   max-width: 600px;
 }
 
 .max-w-\[530px\] {
   max-width: 530px;
+}
+
+.max-w-\[900px\] {
+  max-width: 900px;
+}
+
+.max-w-\[4px\] {
+  max-width: 4px;
 }
 
 .max-w-\[44px\] {
@@ -1418,10 +1426,6 @@ input[type='number']::-webkit-outer-spin-button,
 
 .max-w-\[500px\] {
   max-width: 500px;
-}
-
-.max-w-\[900px\] {
-  max-width: 900px;
 }
 
 .max-w-\[100px\] {
@@ -1468,12 +1472,8 @@ input[type='number']::-webkit-outer-spin-button,
   max-width: 24rem;
 }
 
-.max-w-\[2px\] {
-  max-width: 2px;
-}
-
-.max-w-\[4px\] {
-  max-width: 4px;
+.max-w-\[300px\] {
+  max-width: 300px;
 }
 
 .flex-1 {
@@ -2148,6 +2148,11 @@ input[type='number']::-webkit-outer-spin-button,
   padding-bottom: 0.25rem;
 }
 
+.px-5 {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
 .py-3 {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
@@ -2156,11 +2161,6 @@ input[type='number']::-webkit-outer-spin-button,
 .py-36 {
   padding-top: 9rem;
   padding-bottom: 9rem;
-}
-
-.px-5 {
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
 }
 
 .py-5 {
@@ -2227,12 +2227,12 @@ input[type='number']::-webkit-outer-spin-button,
   padding-top: 2rem;
 }
 
-.pl-9 {
-  padding-left: 2.25rem;
-}
-
 .pl-3 {
   padding-left: 0.75rem;
+}
+
+.pl-9 {
+  padding-left: 2.25rem;
 }
 
 .pt-3 {
@@ -2269,18 +2269,6 @@ input[type='number']::-webkit-outer-spin-button,
 
 .pb-8 {
   padding-bottom: 2rem;
-}
-
-.pt-28 {
-  padding-top: 7rem;
-}
-
-.pl-2 {
-  padding-left: 0.5rem;
-}
-
-.pl-4 {
-  padding-left: 1rem;
 }
 
 .text-left {
@@ -3349,6 +3337,10 @@ input[type='number']::-webkit-outer-spin-button,
     min-width: 250px;
   }
 
+  .md\:max-w-\[300px\] {
+    max-width: 300px;
+  }
+
   .md\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -3500,6 +3492,11 @@ input[type='number']::-webkit-outer-spin-button,
   .md\:text-3xl {
     font-size: 1.875rem;
     line-height: 2.25rem;
+  }
+
+  .md\:text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
   }
 }
 

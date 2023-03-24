@@ -1,35 +1,48 @@
+<div
+  class="container pt-32 pb-16"
+  x-data="{
+                                  loading: false,
+                                  updateCart(){
+                                      // send fetch reqeust to update cart
+                                      fetch('/?view=ajax-cart-page')
+                                      .then(response => response.text())
+                                      .then(cartData => {
+                                          $refs.cart_content.innerHTML = cartData;
+                                          // This code is use to parse json object. for cart count
+                                          var el = document.createElement('div');
+                                          el.innerHTML = cartData;
+                                          var cartCount = JSON.parse(el.querySelector('[data-options]').innerHTML).item_count;
+                                          $dispatch('cart-count-updated', cartCount);
+                                          this.loading = false;
+                                      })
+                                  }
+                                }"@update-cart.window="updateCart;">
 
+  <div class="grid gap-4 pb-16">
+    <h1 class="font-scania text-xl sm:text-3xl lg:text-4xl text-center">{{ section.settings.cart_heading }}</h1>
+    <div class="flex justify-center items-center">
+      {% render 'icon-small-custom-underline' %}
+    </div>
+  </div>
 
-<div class="container"
-    x-data="{
-      loading: false,
-      updateCart(){
-          // send fetch reqeust to update cart
-          fetch('/?view=ajax-cart-page')
-          .then(response => response.text())
-          .then(cartData => {
-              $refs.cart_content.innerHTML = cartData;
-              // This code is use to parse json object. for cart count
-              var el = document.createElement('div');
-              el.innerHTML = cartData;
-              var cartCount = JSON.parse(el.querySelector('[data-options]').innerHTML).item_count;
-              $dispatch('cart-count-updated', cartCount);
-              this.loading = false;
-          })
-      }
-    }"
-		@update-cart.window="updateCart;"
-	
-	>
+  {% render 'loader' %}
 
-	<h1 class="text-3xl font-bold mb-5">Cart</h1>
-
-	<hr>
-
-	{% render 'loader' %}
-
-	<div class="" x-ref="cart_content">
-		{% render 'cart-page-content' %}
-	</div>
+  <div class="" x-ref="cart_content">
+    {% render 'cart-page-content' %}
+  </div>
 
 </div>
+
+{% schema %}
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "text",
+        "id": "cart_heading",
+        "default": "Cart",
+        "label": "Cart Title"
+      }
+    ]
+  }
+{% endschema %}
