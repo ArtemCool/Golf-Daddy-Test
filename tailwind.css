@@ -202,6 +202,10 @@
 	height: 68px;
 }
 
+body {
+	overflow-x: hidden;
+}
+
 @media(width: 768px) {
 	.yotpo-name-email-wrapper{
 		flex-direction: column !important;
